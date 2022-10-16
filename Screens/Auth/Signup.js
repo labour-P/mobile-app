@@ -14,8 +14,8 @@ import { useDispatch } from "react-redux";
 
 const Signup = ({ navigation }) => {
   const [userName, setUserName] = useState({
-    firstName: "",
-    lastName: "",
+    fisrt_name: "",
+    last_name: "",
   });
   const [error, setError] = useState({});
 
@@ -33,39 +33,35 @@ const Signup = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.view}>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Logo />
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 80,
+          }}
+        >
           <HeadingText>Let's get you started</HeadingText>
-          <BodyTextLight
-            style={{
-              textAlign: "center",
-              paddingHorizontal: 35,
-              marginTop: 20,
-            }}
-          >
-            Looks like you dont have an account, lets create one for you
-          </BodyTextLight>
         </View>
-        <View>
+        <View style={{ marginTop: 30 }}>
           <InputDiv
             placeholder={"First Name"}
-            value={userName.firstName || ""}
-            onChangeText={(firstName) =>
-              setUserName((details) => ({ ...details, firstName }))
+            value={userName.fisrt_name || ""}
+            onChangeText={(fisrt_name) =>
+              setUserName((details) => ({ ...details, fisrt_name }))
             }
-            error={error.firstName}
+            error={error.fisrt_name}
             keyboardType="default"
-            name={"firstName"}
+            name={"fisrt_name"}
           />
           <InputDiv
             // title={"Last Name"}
             placeholder={"Last Name"}
-            value={userName.lastName || ""}
-            name={"lastName"}
-            onChangeText={(lastName) =>
-              setUserName((details) => ({ ...details, lastName }))
+            value={userName.last_name || ""}
+            name={"last_name"}
+            onChangeText={(last_name) =>
+              setUserName((details) => ({ ...details, last_name }))
             }
-            error={error.lastName}
+            error={error.last_name}
             keyboardType="default"
           />
         </View>
@@ -78,9 +74,8 @@ const Signup = ({ navigation }) => {
           </LinkText>
         </View>
         <View>
-          <ButtonDiv onPress={handlSubmit}>Next</ButtonDiv>
+          <ButtonDiv onPress={handlSubmit}>Submit</ButtonDiv>
         </View>
-
         <ForwardForever />
       </View>
     </SafeAreaView>

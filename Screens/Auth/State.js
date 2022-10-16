@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, StyleSheet, ScrollView } from "react-native";
-import InputDiv from "../../components/forms/InputDiv";
+import { View, StyleSheet, Dimensions } from "react-native";
 import SelectInput from "../../components/forms/SelectInput";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import ForwardForever from "../../components/general/ForwardForever";
 import HeadingText from "../../components/general/HeadingText";
-import LinkText from "../../components/general/LinkText";
 import { useDispatch } from "react-redux";
 import { setLocation } from "../../redux/actions/auth";
 import { stateError } from "./error";
+import { nigeria } from "./../../model/state";
+import AddressSvg from "../../svg/AddressSvg";
+import Wrapper from "../../components/general/Wrapper";
 
 const State = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -17,24 +18,86 @@ const State = ({ navigation }) => {
     ward: "",
     pollingUnit: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
+  const [states, setStates] = useState([]);
+  const [lgas, setLgas] = useState([]);
+  const [wards, setWards] = useState([]);
+  const [units, setUnits] = useState([]);
 
   const dispatch = useDispatch();
 
-  const state = [
-    {
-      value: "Abia",
-      label: "Abia",
-    },
-    {
-      value: "Abuja",
-      label: "Abuja",
-    },
-    {
-      value: "Benue",
-      label: "Benue",
-    },
-  ];
+  useEffect(() => {
+    const myState = nigeria.map((state) => {
+      return {
+        label: state.name,
+        value: state.name,
+      };
+    });
+    setStates(myState);
+
+    return () => myState;
+  }, [setStates]);
+
+  useEffect(() => {
+    const myLga = nigeria.filter((state) => {
+      if (state.name === details.state) {
+        let newLga = state.lgas.map((lga) => {
+          return {
+            value: lga.name,
+            label: lga.name,
+          };
+        });
+
+        setLgas(newLga);
+      }
+    });
+
+    return () => myLga;
+  }, [details.state]);
+
+  useEffect(() => {
+    const myWard = nigeria.filter((state) => {
+      if (state.name === details.state) {
+        state.lgas.map((lga) => {
+          if (lga.name === details.lga) {
+            const newWard = lga.wards.map((ward) => {
+              return {
+                label: ward.name,
+                value: ward.name,
+              };
+            });
+            setWards(newWard);
+          }
+        });
+      }
+    });
+
+    return () => myWard;
+  }, [details.lga, details.state]);
+
+  useEffect(() => {
+    const myUnit = nigeria.filter((state) => {
+      if (state.name === details.state) {
+        state.lgas.map((lga) => {
+          if (lga.name === details.lga) {
+            lga.wards.map((ward) => {
+              if (ward.name === details.ward) {
+                const newUnits = ward.units.map((unit) => {
+                  return {
+                    label: unit.name,
+                    value: unit.name,
+                  };
+                });
+                setUnits(newUnits);
+              }
+            });
+          }
+        });
+      }
+    });
+
+    return () => myUnit;
+  }, [details.lga, details.state, details.ward]);
 
   const handleSubmit = async () => {
     const res = stateError(details, setError);
@@ -46,13 +109,15 @@ const State = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <Wrapper>
       <View style={styles.view}>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <AddressSvg />
+        </View>
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
-            marginTop: 40,
           }}
         >
           <HeadingText style={{ fontSize: 18 }}>
@@ -62,7 +127,7 @@ const State = ({ navigation }) => {
         <View>
           <SelectInput
             placeholder={"State of residence"}
-            data={state}
+            data={states}
             value={details.state || ""}
             name={"state"}
             onChange={(item) =>
@@ -72,7 +137,7 @@ const State = ({ navigation }) => {
           />
           <SelectInput
             placeholder={"Local Government Area"}
-            data={state}
+            data={lgas}
             value={details.lga || ""}
             name={"lga"}
             onChange={(item) =>
@@ -82,7 +147,7 @@ const State = ({ navigation }) => {
           />
           <SelectInput
             placeholder={"Voting Ward"}
-            data={state}
+            data={wards}
             value={details.ward || ""}
             name={"ward"}
             onChange={(item) =>
@@ -92,11 +157,14 @@ const State = ({ navigation }) => {
           />
           <SelectInput
             placeholder={"Polling Unit"}
-            data={state}
+            data={units}
             value={details.pollingUnit || ""}
             name={"pollingUnit"}
             onChange={(item) =>
-              setDetails((details) => ({ ...details, pollingUnit: item.value }))
+              setDetails((details) => ({
+                ...details,
+                pollingUnit: item.value,
+              }))
             }
             error={error.pollingUnit}
           />
@@ -108,7 +176,7 @@ const State = ({ navigation }) => {
 
         <ForwardForever />
       </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 
@@ -119,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "space-between",
-    paddingBottom: 10,
-    marginTop: 60,
+    height: Dimensions.get("window").height,
+    paddingVertical: 15,
   },
 });

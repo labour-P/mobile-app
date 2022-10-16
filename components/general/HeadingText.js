@@ -13,7 +13,7 @@ export default HeadingText;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 28,
+    fontSize: 20,
     fontFamily: "bold",
   },
 });

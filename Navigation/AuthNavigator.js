@@ -10,6 +10,9 @@ import Otp from "../Screens/Auth/Otp";
 import State from "../Screens/Auth/State";
 import DateOfBirth from "../Screens/Auth/DateOfBirth";
 import UsernameAndPassword from "../Screens/Auth/UsernameAndPassword";
+import RecoverPassword from "../Screens/Auth/RecoverPassword";
+import ResetPassword from "../Screens/Auth/ResetPassword";
+import ProfileImage from "../Screens/Auth/ProfileImage";
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +56,15 @@ export function AuthStack(props) {
         <Stack.Screen name="UsernameAndPasswordScreen">
           {(props) => <UsernameAndPassword {...props} />}
         </Stack.Screen>
+        <Stack.Screen name="RecoverPasswordScreen">
+          {(props) => <RecoverPassword {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="ResetPasswordScreen">
+          {(props) => <ResetPassword {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="ProfileImageScreen">
+          {(props) => <ProfileImage {...props} />}
+        </Stack.Screen>
       </Stack.Navigator>
     );
   } else {
@@ -78,6 +90,15 @@ export function AuthStack(props) {
         </Stack.Screen>
         <Stack.Screen name="UsernameAndPasswordScreen">
           {(props) => <UsernameAndPassword {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="RecoverPasswordScreen">
+          {(props) => <RecoverPassword {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="ResetPasswordScreen">
+          {(props) => <ResetPassword {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="ProfileImageScreen">
+          {(props) => <ProfileImage {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     );

@@ -13,10 +13,9 @@ import {
   DrawerContentScrollView,
   DrawerItem,
 } from "@react-navigation/drawer";
-import Home from "../Screens/Home";
-import Search from "../Screens/Search";
 import MyTab from "./TabNavigator";
 import { Feather } from "@expo/vector-icons";
+import Profile from "../Screens/Profile";
 
 const Drawer = createDrawerNavigator();
 
@@ -27,7 +26,7 @@ export default function DrawerTab() {
       screenOptions={({ navigation }) => ({
         headerStyle: {
           backgroundColor: "#fff",
-          height: 80,
+          height: 120,
         },
         headerLeft: () => (
           <TouchableOpacity
@@ -46,14 +45,14 @@ export default function DrawerTab() {
       })}
     >
       <Drawer.Screen
-        name="HomeScreen"
+        name="Home"
         component={MyTab}
         options={{
           title: "Home",
           // headerShown: false,
         }}
       />
-      <Drawer.Screen name="SearchScreen" component={Search} />
+      <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
   );
 }

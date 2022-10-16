@@ -5,18 +5,27 @@ import {
   TouchableOpacity,
   Dimensions,
   View,
+  ActivityIndicator,
 } from "react-native";
+import ErrorText from "./ErrorText";
 
 const ButtonDiv = (props) => {
   let ButtonComponent = TouchableOpacity;
 
   return (
     <View style={styles.container}>
+      {props?.error && (
+        <ErrorText style={styles.error}>{props?.error}</ErrorText>
+      )}
       <ButtonComponent
         onPress={props.onPress}
         style={{ ...styles.button, ...props.styles }}
       >
-        <Text style={{ ...styles.text }}>{props.children}</Text>
+        {props.loading ? (
+          <ActivityIndicator color={"#fff"} size="small" />
+        ) : (
+          <Text style={{ ...styles.text }}>{props.children}</Text>
+        )}
       </ButtonComponent>
     </View>
   );
@@ -43,5 +52,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     zIndex: -10,
+  },
+  error: {
+    marginLeft: 20,
+    marginBottom: 5,
   },
 });

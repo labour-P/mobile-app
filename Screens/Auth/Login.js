@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Dimensions, StyleSheet } from "react-native";
 import InputDiv from "../../components/forms/InputDiv";
 import PasswordInputDiv from "../../components/forms/PasswordInputDiv";
 import BodyTextBold from "../../components/general/BodyTextBold";
-import BodyTextLight from "../../components/general/BodyTextLight";
 import BoldText from "../../components/general/BoldText";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import ForwardForever from "../../components/general/ForwardForever";
@@ -13,6 +12,8 @@ import Logo from "../../components/images/Logo";
 import { login } from "../../redux/actions/auth";
 import { useDispatch } from "react-redux";
 import { loginError } from "./error";
+import { getInitals } from "../../utils/getInitials";
+import Wrapper from "../../components/general/Wrapper";
 
 const Login = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -20,29 +21,35 @@ const Login = ({ navigation }) => {
     password: "",
   });
   const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     const res = loginError(details, setError);
 
-    if (res !== true) {
+    if (!res) {
+      setLoading(true);
       try {
-      } catch (error) {}
+        await dispatch(login(details));
+        setError((errors) => ({ ...errors, res: "" }));
+      } catch (error) {
+        setError((errors) => ({ ...errors, res: error.message }));
+      }
     }
+    setLoading(false);
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <Wrapper>
       <View style={styles.view}>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Logo />
           <HeadingText>Welcome Back</HeadingText>
-          <BoldText>Benjamin</BoldText>
+          {/* <BoldText>Benjamin</BoldText> */}
         </View>
         <View>
           <InputDiv
-            // title={"Username or Email"}
             placeholder={"Username or Email"}
             value={details.email}
             name="email"
@@ -65,7 +72,27 @@ const Login = ({ navigation }) => {
           />
         </View>
         <View>
-          <ButtonDiv onPress={handleSubmit}>Login</ButtonDiv>
+          <ButtonDiv error={error.res} loading={loading} onPress={handleSubmit}>
+            Login
+          </ButtonDiv>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 10,
+            }}
+          >
+            <BodyTextBold style={{ opacity: 0.8 }}>
+              Forgot Password?
+            </BodyTextBold>
+            <LinkText
+              onPress={() => navigation.navigate("RecoverPasswordScreen")}
+              style={{ color: "#008325", paddingLeft: 5 }}
+            >
+              click here
+            </LinkText>
+          </View>
         </View>
         <View style={{ flexDirection: "row" }}>
           <BodyTextBold style={{ opacity: 0.8 }}>First time here?</BodyTextBold>
@@ -79,7 +106,7 @@ const Login = ({ navigation }) => {
 
         <ForwardForever />
       </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 
@@ -90,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "space-between",
-    paddingBottom: 10,
-    marginTop: 60,
+    height: Dimensions.get("window").height,
+    paddingVertical: 20,
   },
 });

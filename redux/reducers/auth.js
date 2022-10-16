@@ -3,14 +3,21 @@ import {
   LOGOUT,
   LOGIN,
   SET_LOCATION,
-  SET_EMAIL_AND_PHONE,
+  VERIFY_EMAIL_AND_PHONE,
   SET_USER_NAME,
-  SET_DOB,
+  SET_AGE,
+  SET_PROFILE_IMAGE,
 } from "./../actions/auth";
 
 const initialState = {
   isAuth: false,
-  user: {},
+  user: {
+    id: 1,
+    name: "inedu joshua",
+    username: "josh",
+    profileUrl:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
+  },
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -19,7 +26,12 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case SET_PROFILE_IMAGE:
+      return {
+        ...state,
         isAuth: true,
+        profileImage: action.payload,
       };
     case LOGOUT: {
       return {
@@ -37,13 +49,13 @@ export const authReducer = (state = initialState, action) => {
     case SET_USER_NAME:
       return {
         ...state,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
+        name: `${action.payload.fisrt_name} ${action.payload.last_name}`,
       };
 
-    case SET_EMAIL_AND_PHONE:
+    case VERIFY_EMAIL_AND_PHONE:
       return {
         ...state,
+        token: action.payload.token,
         phone: action.payload.phone,
         email: action.payload.email,
       };
@@ -54,12 +66,12 @@ export const authReducer = (state = initialState, action) => {
         state: action.payload.state,
         lga: action.payload.lga,
         ward: action.payload.ward,
-        pollingUnits: action.payload.pollingUnit,
+        polling_unit: action.payload.pollingUnit,
       };
-    case SET_DOB:
+    case SET_AGE:
       return {
         ...state,
-        dob: action.payload.dob,
+        age: action.payload.age,
       };
     default:
       return state;
