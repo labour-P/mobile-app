@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Dimensions, StyleSheet } from "react-native";
 import InputDiv from "../../components/forms/InputDiv";
 import PasswordInputDiv from "../../components/forms/PasswordInputDiv";
-import BodyTextLight from "../../components/general/BodyTextLight";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import ForwardForever from "../../components/general/ForwardForever";
 import HeadingText from "../../components/general/HeadingText";
 import LinkText from "../../components/general/LinkText";
 import Logo from "../../components/images/Logo";
-import { login } from "../../redux/actions/auth";
-import { useDispatch } from "react-redux";
+import { signup } from "../../redux/actions/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpError } from "./error";
+import SignupSvg from "../../svg/SignupSvg";
+import Wrapper from "../../components/general/Wrapper";
+import BodyTextLight from "../../components/general/BodyTextLight";
 
 const UsernameAndPassword = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -18,22 +20,53 @@ const UsernameAndPassword = ({ navigation }) => {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const { name, email, phone, state, ward, lga, polling_unit, age } =
+    useSelector((state) => state.auth);
+
+  const checkUsername = async (username) => {
+    setDetails((details) => ({ ...details, username }));
+  };
 
   const handleSignup = async () => {
     const res = signUpError(details, setError);
-
     if (res !== true) {
-      await dispatch(login());
+      const data = {
+        name,
+        email,
+        phone,
+        state,
+        ward,
+        lga,
+        pollingUnit: polling_unit,
+        age,
+        address: "my address",
+        city: "abuja",
+        userName: details.username,
+        password: details.password,
+      };
+
+      setLoading(true);
+      try {
+        await dispatch(signup(data));
+        setError((errors) => ({ ...errors, res: "" }));
+        navigation.navigate("ProfileImageScreen");
+      } catch (error) {
+        setError((errors) => ({ ...errors, res: error.message }));
+      }
     }
+    setLoading(false);
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <Wrapper>
       <View style={styles.view}>
-        <Logo />
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <SignupSvg />
+        </View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <HeadingText style={{ fontSize: 18 }}>
             Choose a username and password
@@ -43,9 +76,7 @@ const UsernameAndPassword = ({ navigation }) => {
           <InputDiv
             placeholder={"Username"}
             value={details.username}
-            onChangeText={(username) =>
-              setDetails((details) => ({ ...details, username }))
-            }
+            onChangeText={(username) => checkUsername(username)}
             name="username"
             error={error.username}
             keyboardType="default"
@@ -74,20 +105,20 @@ const UsernameAndPassword = ({ navigation }) => {
           />
         </View>
         <View>
-          <LinkText
-            onPress={() => navigation.navigate("SignupScreen")}
-            style={{ color: "#008325", paddingLeft: 5 }}
-          >
-            I agree to the terms of service provacy policy
-          </LinkText>
+          <BodyTextLight style={{ paddingHorizontal: 10, opacity: 0.7 }}>
+            By clicking Submit you Agree to give your Vote to the Labour Party
+            and your Support to the OBIDATTI Presidency come 2023.
+          </BodyTextLight>
         </View>
-        <View>
-          <ButtonDiv onPress={handleSignup}>Submit</ButtonDiv>
+        <View style={{ marginTop: 20 }}>
+          <ButtonDiv error={error.res} loading={loading} onPress={handleSignup}>
+            Submit
+          </ButtonDiv>
         </View>
 
         <ForwardForever />
       </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 
@@ -98,7 +129,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "space-between",
-    paddingBottom: 10,
-    marginTop: 60,
+    paddingVertical: 10,
+    height: Dimensions.get("window").height,
   },
 });

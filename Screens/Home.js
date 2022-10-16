@@ -1,19 +1,31 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { DrawerActions } from "@react-navigation/native";
+import { View, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+
+import ChatDiv from "../components/home/ChatDiv";
+import PostContent from "../components/home/PostContent";
+import Advertise from "../components/home/Advertise";
+import Support from "../components/home/Support";
+
+import FloatingBtn from "../components/general/Floatingbtn";
 
 const Home = ({ navigation }) => {
   return (
-    <View style={styles.view}>
-      <Text style={{ fontFamily: "bold" }}>Home Screen</Text>
-      <TouchableOpacity
-        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-        style={styles.float}
-      >
-        <AntDesign name="pluscircle" size={55} color="#008325" />
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.view}>
+      <ScrollView>
+        <View style={styles.mainView}>
+          <ChatDiv navigation={navigation} />
+
+          <PostContent navigation={navigation} />
+
+          <Advertise />
+
+          <Support />
+        </View>
+      </ScrollView>
+
+      {/* Floating button */}
+      <FloatingBtn navigation={navigation} />
+    </SafeAreaView>
   );
 };
 
@@ -22,15 +34,13 @@ export default Home;
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
     backgroundColor: "#fff",
     zIndex: -1,
   },
-  float: {
-    position: "absolute",
-    bottom: -30,
-    zIndex: 3,
+  mainView: {
+    flex: 1,
+    position: "relative",
+    backgroundColor: "#fff",
+    marginBottom: 50,
   },
 });

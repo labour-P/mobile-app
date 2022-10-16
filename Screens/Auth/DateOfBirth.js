@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  Text,
   Dimensions,
 } from "react-native";
 import ButtonDiv from "../../components/general/ButtonDiv";
@@ -13,16 +12,17 @@ import HeadingText from "../../components/general/HeadingText";
 import CalendarPicker from "react-native-calendar-picker";
 import BodyTextBold from "../../components/general/BodyTextBold";
 import moment from "moment";
-import BodyTextLight from "../../components/general/BodyTextLight";
 import Dob from "../../components/forms/Dob";
 import Logo from "../../components/images/Logo";
-import { dobError } from "./error";
+import { ageError } from "./error";
 import { useDispatch } from "react-redux";
-import { setDob } from "../../redux/actions/auth";
+import { setAge } from "../../redux/actions/auth";
+import CalendarSvg from "../../svg/CalendarSvg";
+import Wrapper from "../../components/general/Wrapper";
 
 const DateOfBirth = ({ navigation }) => {
   const [calendar, setCalendar] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState();
   const [date, setDate] = useState({
     formattedDate: "",
     dateString: "",
@@ -47,30 +47,34 @@ const DateOfBirth = ({ navigation }) => {
 
   const getAge = (birthDate) => {
     const _date = new Date(birthDate);
-    const newDate = _date.toISOString().slice(0, 10);
+    let newDate;
+    try {
+      newDate = _date.toISOString().slice(0, 10);
+    } catch (e) {
+      setError("Please select a date of birth");
+    }
     return Math.floor((new Date() - new Date(newDate).getTime()) / 3.15576e10);
   };
 
   const handleSubmit = async () => {
     const age = getAge(date.dateString);
 
-    const res = dobError(date, age, setError);
+    const res = ageError(date, age, setError);
 
     if (res !== true) {
-      dispatch(setDob(date.formattedDate));
+      dispatch(setAge(date.formattedDate));
       navigation.navigate("UsernameAndPasswordScreen");
     }
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <Wrapper>
       <View style={styles.view}>
-        <Logo />
+        <CalendarSvg />
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
-            marginTop: 40,
           }}
         >
           <HeadingText style={{ fontSize: 18 }}>
@@ -123,7 +127,7 @@ const DateOfBirth = ({ navigation }) => {
 
         <ForwardForever />
       </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 
@@ -134,8 +138,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "space-between",
-    paddingBottom: 10,
-    marginTop: Dimensions.get("window").height / 10,
+    height: Dimensions.get("window").height,
+    paddingVertical: 30,
   },
   container: {
     backgroundColor: "#ffffff",

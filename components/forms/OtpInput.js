@@ -1,49 +1,105 @@
-import React, { useEffect, useState } from "react";
-import { TextInput, View, StyleSheet, Dimensions } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import BodyTextBold from "../general/BodyTextBold";
+import BodyTextLight from "../general/BodyTextLight";
 
 const OtpInput = (props) => {
-  const [inputStyle, setInputStyle] = useState({});
+  const [inputIsFocused, setInputIsFocused] = useState(false);
+
+  const digitsArr = new Array(props.maxLength).fill(0);
+
+  const textInputRef = useRef(null);
+
+  const handleBlur = () => {
+    setInputIsFocused(false);
+  };
+
+  const handlePress = () => {
+    setInputIsFocused(true);
+    textInputRef?.current?.focus();
+  };
 
   useEffect(() => {
-    if (props.value) {
-      setInputStyle({
-        ...styles.edit,
-      });
-    }
-  }, [props.value]);
+    props.setOtpReady(props.otp.length === props.maxLength);
 
-  useEffect(() => {
-    setInputStyle({
-      ...styles.input,
-    });
-  }, []);
+    return () => props.setOtpReady(false);
+  }, [props.otp]);
 
-  useEffect(() => {
-    const inputTimer = setTimeout(() => {
-      if (props.error) {
-        setInputStyle({
-          ...styles.err,
-        });
-      } else {
-        setInputStyle({
-          ...styles.input,
-        });
-      }
-    }, 1000);
+  const mapDigitFromInput = (value, index) => {
+    const emptyInputChar = "";
+    const digit = props.otp[index] || emptyInputChar;
 
-    return () => clearTimeout(inputTimer);
-  }, [props.value, props.error]);
+    const isCurrentDigit = index === props.otp.length;
+    const isLastDigit = index === props.maxLength - 1;
+    const isCodeFull = props.otp.length === props.maxLength;
+
+    const isDigitFocused = isCurrentDigit || (isLastDigit && isCodeFull);
+
+    const OTPInputFocused = {
+      borderColor: "green",
+      borderWidth: 2,
+      width: 40,
+      height: 40,
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+    };
+
+    const OTPInput = {
+      borderColor: "#ccc",
+      borderWidth: 2,
+      width: 40,
+      height: 40,
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+    };
+
+    const styledInputBox =
+      inputIsFocused && isDigitFocused ? OTPInputFocused : OTPInput;
+
+    return (
+      <View style={styledInputBox} key={index}>
+        <BodyTextLight>{digit}</BodyTextLight>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.div}>
-      <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold>
+      {/* <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold> */}
+
+      <TouchableOpacity
+        style={{
+          width: "90%",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexDirection: "row",
+        }}
+        onPress={handlePress}
+      >
+        {digitsArr.map(mapDigitFromInput)}
+      </TouchableOpacity>
       <TextInput
-        style={inputStyle}
+        style={styles.input}
         selectionColor={"#008325"}
         autoCorrect={false}
         autoCapitalize="none"
         importantForAutofill={"no"}
+        value={props.otp}
+        onChangeText={props.setOtp}
+        keyboardType="number-pad"
+        maxLength={props.maxLength}
+        returnKeyType={"done"}
+        textContentType="oneTimeCode"
+        ref={textInputRef}
+        onBlur={handleBlur}
         {...props}
       />
     </View>
@@ -54,43 +110,15 @@ export default OtpInput;
 
 const styles = StyleSheet.create({
   input: {
-    color: "#fff",
-    width: 45,
-    height: 60,
-    fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#c5c6cc",
-    borderWidth: 1,
-    borderRadius: 11,
-    paddingLeft: 15,
-    color: "#000",
-    marginHorizontal: 4,
+    position: "absolute",
+    width: 1,
+    height: 1,
+    opacity: 0,
   },
-  err: {
-    color: "#fff",
-    width: 30,
-    height: 60,
-    fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#d63e39",
-    borderWidth: 1,
-    borderRadius: 11,
-    paddingLeft: 15,
-    color: "#000",
-  },
-  edit: {
-    color: "#fff",
-    width: 30,
-    height: 60,
-    fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#008325",
-    borderWidth: 1,
-    borderRadius: 11,
-    paddingLeft: 15,
-    color: "#000",
-  },
+
   div: {
     marginVertical: 8,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

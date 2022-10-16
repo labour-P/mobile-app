@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   input: {
     color: "#fff",
     width: Dimensions.get("window").width - 30,
-    height: 60,
+    height: 49,
     fontSize: 16,
     fontFamily: "medium",
     borderColor: "#c5c6cc",
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   err: {
     color: "#fff",
     width: Dimensions.get("window").width - 30,
-    height: 60,
+    height: 49,
     fontSize: 16,
     fontFamily: "medium",
     borderColor: "#d63e39",
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   edit: {
     color: "#fff",
     width: Dimensions.get("window").width - 30,
-    height: 60,
+    height: 49,
     fontSize: 16,
     fontFamily: "medium",
     borderColor: "#008325",

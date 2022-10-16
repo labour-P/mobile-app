@@ -1,24 +1,24 @@
 import isEmail from "validator/lib/isEmail";
 
-export const nameError = ({ firstName, lastName }, setError) => {
-  if (!firstName.trim()) {
+export const nameError = ({ fisrt_name, last_name }, setError) => {
+  if (!fisrt_name.trim()) {
     setError((error) => ({
       ...error,
-      firstName: "first name cannot be empty",
+      fisrt_name: "first name cannot be empty",
     }));
     return true;
   } else {
-    setError((error) => ({ ...error, firstName: "" }));
+    setError((error) => ({ ...error, fisrt_name: "" }));
   }
 
-  if (!lastName.trim()) {
+  if (!last_name.trim()) {
     setError((error) => ({
       ...error,
-      lastName: "last name cannot be empty",
+      last_name: "last name cannot be empty",
     }));
     return true;
   } else {
-    setError((error) => ({ ...error, lastName: "" }));
+    setError((error) => ({ ...error, last_name: "" }));
   }
 };
 
@@ -33,7 +33,7 @@ export const emailAndPhoneError = ({ phone, email }, setError) => {
     setError((error) => ({ ...error, phone: "" }));
   }
 
-  if (phone.length < 11 || phone.length > 11) {
+  if (phone.trim().length < 11 || phone.trim().length > 11) {
     setError((error) => ({
       ...error,
       phone: "please input a valid phone number",
@@ -65,7 +65,7 @@ export const loginError = ({ email, password }, setError) => {
     setError((error) => ({ ...error, email: "" }));
   }
 
-  if (password.length < 6) {
+  if (password.trim().length < 6) {
     setError((error) => ({
       ...error,
       password: "password must be at least 6 characters",
@@ -112,7 +112,7 @@ export const stateError = ({ state, lga, pollingUnit, ward }, setError) => {
   }
 };
 
-export const dobError = ({ formattedDate }, age, setError) => {
+export const ageError = ({ formattedDate }, age, setError) => {
   if (!formattedDate) {
     setError("Please select a date of birth");
     return true;
@@ -131,14 +131,14 @@ export const signUpError = (
   { username, password, confirmPassword },
   setError
 ) => {
-  if (!username) {
+  if (!username.trim()) {
     setError((error) => ({ ...error, username: "Please select a username" }));
     return true;
   } else {
     setError((error) => ({ ...error, username: "" }));
   }
 
-  if (!password) {
+  if (password.trim().length < 6) {
     setError((error) => ({
       ...error,
       password: "password must be at least 6 characters long",
@@ -148,7 +148,7 @@ export const signUpError = (
     setError((error) => ({ ...error, password: "" }));
   }
 
-  if (confirmPassword !== password) {
+  if (confirmPassword.trim() !== password.trim()) {
     setError((error) => ({
       ...error,
       confirmPassword: "passwords do not match",
@@ -157,5 +157,87 @@ export const signUpError = (
     return true;
   } else {
     setError((error) => ({ ...error, confirmPassword: "" }));
+  }
+};
+
+export const phoneError = (phone, setError) => {
+  if (!phone.trim()) {
+    setError((errors) => ({
+      ...errors,
+      phone: "phone number name cannot be empty",
+    }));
+    return true;
+  } else {
+    setError((errors) => ({ ...errors, phone: "" }));
+  }
+
+  if (phone.trim().length < 11 || phone.trim().length > 11) {
+    setError((errors) => ({
+      ...errors,
+      phone: "please input a valid phone number",
+    }));
+    return true;
+  } else {
+    setError((errors) => ({ ...errors, phone: "" }));
+  }
+};
+
+export const resetError = ({ otp, password, confirmPassword }, setError) => {
+  if (!otp.trim()) {
+    setError((error) => ({ ...error, otp: "Please select a username" }));
+    return true;
+  } else {
+    setError((error) => ({ ...error, otp: "" }));
+  }
+
+  if (otp.trim().length < 6 || otp.trim().length > 6) {
+    setError((error) => ({ ...error, otp: "OTP is 6 characters" }));
+    return true;
+  } else {
+    setError((error) => ({ ...error, otp: "" }));
+  }
+
+  if (!password.trim()) {
+    setError((error) => ({
+      ...error,
+      password: "password must be at least 6 characters long",
+    }));
+    return true;
+  } else {
+    setError((error) => ({ ...error, password: "" }));
+  }
+
+  if (confirmPassword.trim() !== password.trim()) {
+    setError((error) => ({
+      ...error,
+      confirmPassword: "passwords do not match",
+      password: "passwords do not match",
+    }));
+    return true;
+  } else {
+    setError((error) => ({ ...error, confirmPassword: "" }));
+  }
+};
+
+export const errorOtp = (otp, token, setError) => {
+  if (!otp.trim()) {
+    setError((errors) => ({ ...errors, otp: "OTP cannot be empty!" }));
+    return true;
+  } else {
+    setError((errors) => ({ ...errors, otp: "" }));
+  }
+
+  if (otp.trim().length < 6 || otp.trim().length > 6) {
+    setError((errors) => ({ ...errors, otp: "OTP must be 6 digits!" }));
+    return true;
+  } else {
+    setError((errors) => ({ ...errors, otp: "" }));
+  }
+
+  if (otp.trim() !== token) {
+    setError((errors) => ({ ...errors, res: "OTP expired or is incorrect!" }));
+    return true;
+  } else {
+    setError((errors) => ({ ...errors, res: "" }));
   }
 };

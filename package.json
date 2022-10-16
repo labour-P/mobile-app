@@ -2,13 +2,19 @@
   "name": "labor-p",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
+ "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "build:android": "NODE_ENV=production npx eas build --platform android",
+    "build:ios": "NODE_ENV=production npx eas build --platform ios",
+    "publish": "NODE_ENV=production expo publish",
+    "preview": "NODE_ENV=preview  eas build -p android --profile preview"
   },
   "dependencies": {
+    "@baronha/react-native-multiple-image-picker": "^0.4.11",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-navigation/drawer": "^6.5.0",
@@ -17,10 +23,12 @@
     "@react-navigation/native-stack": "^6.9.0",
     "expo": "~46.0.9",
     "expo-font": "~10.2.1",
+    "expo-image-picker": "~13.3.1",
+    "expo-location": "~14.3.0",
     "expo-status-bar": "~1.4.0",
     "moment": "^2.29.4",
     "react": "18.0.0",
-    "react-native": "0.69.5",
+    "react-native": "0.69.6",
     "react-native-calendar-picker": "^7.1.2",
     "react-native-element-dropdown": "^2.3.0",
     "react-native-gesture-handler": "~2.5.0",
@@ -32,6 +40,7 @@
     "react-redux": "^8.0.4",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "uuid": "^9.0.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {

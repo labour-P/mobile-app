@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, SafeAreaView, StyleSheet, Dimensions } from "react-native";
 import InputDiv from "../../components/forms/InputDiv";
-import PasswordInputDiv from "../../components/forms/PasswordInputDiv";
-import BodyTextBold from "../../components/general/BodyTextBold";
-import BodyTextLight from "../../components/general/BodyTextLight";
-import BoldText from "../../components/general/BoldText";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import ForwardForever from "../../components/general/ForwardForever";
 import HeadingText from "../../components/general/HeadingText";
-import LinkText from "../../components/general/LinkText";
 import Logo from "../../components/images/Logo";
 import { emailAndPhoneError } from "./error";
-
 import { useDispatch } from "react-redux";
-import { setEmailAndPhone } from "../../redux/actions/auth";
+import { verifyEmailAndPhone } from "../../redux/actions/auth";
+import EmailSvg from "../../svg/EmailSvg";
+import BodyTextLight from "../../components/general/BodyTextLight";
+import Wrapper from "../../components/general/Wrapper";
 
 const EmailAndPhone = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -21,6 +18,7 @@ const EmailAndPhone = ({ navigation }) => {
     email: "",
   });
   const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -28,24 +26,40 @@ const EmailAndPhone = ({ navigation }) => {
     const res = emailAndPhoneError(details, setError);
 
     if (res !== true) {
-      dispatch(setEmailAndPhone(details));
-      navigation.navigate("OtpScreen");
+      setLoading(true);
+      try {
+        setError((errors) => ({ ...errors, res: "" }));
+        await dispatch(verifyEmailAndPhone(details));
+        navigation.navigate("OtpScreen");
+      } catch (error) {
+        setError((errors) => ({ ...errors, res: error.message }));
+      }
     }
+
+    setLoading(false);
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <Wrapper>
       <View style={styles.view}>
-        <Logo />
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <EmailSvg />
+        </View>
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <HeadingText style={{ fontSize: 18 }}>
-            What's your email and phone number
+          <HeadingText style={{ fontSize: 18, textAlign: "center" }}>
+            Please enter your email and phone number
           </HeadingText>
+          <BodyTextLight
+            style={{ textAlign: "center", opacity: 0.8, paddingHorizontal: 10 }}
+          >
+            Please an active phone number would be great, so we can send you
+            valuable notifications when neccessary
+          </BodyTextLight>
         </View>
         <View>
           <InputDiv
@@ -72,12 +86,14 @@ const EmailAndPhone = ({ navigation }) => {
         </View>
 
         <View>
-          <ButtonDiv onPress={handleSubmit}>Next</ButtonDiv>
+          <ButtonDiv error={error.res} onPress={handleSubmit} loading={loading}>
+            Next
+          </ButtonDiv>
         </View>
 
         <ForwardForever />
       </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 
@@ -88,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "space-between",
-    paddingBottom: 10,
-    marginTop: Dimensions.get("window").height / 7,
+    height: Dimensions.get("window").height,
+    paddingVertical: 20,
   },
 });
