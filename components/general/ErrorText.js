@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
+import { colors } from "../../constants/color";
 
 const ErrorText = (props) => {
   return (
@@ -13,6 +14,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 11,
     fontFamily: "bold",
-    color: "#d63e39",
+    color: colors.error,
   },
 });

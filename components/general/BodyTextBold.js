@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
+import { colors } from "../../constants/color";
 
 const BodyTextBold = (props) => {
   return (
@@ -11,7 +12,8 @@ export default BodyTextBold;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 15,
+    fontSize: 16,
     fontFamily: "bold",
+    color: colors.darkText,
   },
 });

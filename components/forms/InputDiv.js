@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TextInput, View, StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../constants/color";
 import BodyTextBold from "../general/BodyTextBold";
 import ErrorText from "../general/ErrorText";
 
@@ -41,7 +42,7 @@ const InputDiv = (props) => {
       {/* <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold> */}
       <TextInput
         style={inputStyle}
-        selectionColor={"#008325"}
+        selectionColor={colors.primaryBg}
         autoCorrect={false}
         autoCapitalize="none"
         importantForAutofill={"no"}
@@ -56,40 +57,37 @@ export default InputDiv;
 
 const styles = StyleSheet.create({
   input: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#c5c6cc",
+    fontFamily: "normal",
+    borderColor: colors.primaryGray,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   err: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#d63e39",
+    fontFamily: "normal",
+    borderColor: colors.error,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   edit: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#008325",
+    fontFamily: "normal",
+    borderColor: colors.primaryBg,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   div: {
     marginVertical: 8,

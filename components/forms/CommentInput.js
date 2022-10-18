@@ -1,11 +1,12 @@
 import React from "react";
 import { View, StyleSheet, TextInput, Dimensions } from "react-native";
+import { colors } from "../../constants/color";
 
 const CommentInput = (props) => {
   return (
     <TextInput
       style={styles.input}
-      selectionColor={"#008325"}
+      selectionColor={colors.primaryBg}
       autoCorrect={false}
       autoCapitalize="none"
       importantForAutofill={"no"}
@@ -18,14 +19,11 @@ export default CommentInput;
 
 const styles = StyleSheet.create({
   input: {
-    input: {
-      color: "#fff",
-      width: Dimensions.get("window").width - 30,
-      height: 50,
-      fontSize: 16,
-      fontFamily: "medium",
-      paddingLeft: 15,
-      color: "#000",
-    },
+    width: Dimensions.get("window").width - 30,
+    height: 50,
+    fontSize: 16,
+    fontFamily: "normal",
+    paddingLeft: 15,
+    color: colors.darkText,
   },
 });

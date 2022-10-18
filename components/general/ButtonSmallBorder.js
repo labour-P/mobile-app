@@ -6,6 +6,7 @@ import {
   Dimensions,
   View,
 } from "react-native";
+import { colors } from "../../constants/color";
 
 const ButtonSmallBorder = (props) => {
   let ButtonComponent = TouchableOpacity;
@@ -27,15 +28,15 @@ export default ButtonSmallBorder;
 const styles = StyleSheet.create({
   text: {
     fontFamily: "bold",
-    fontSize: 17,
-    color: "#009245",
+    fontSize: 14,
+    color: colors.primaryBg,
   },
   button: {
     height: 49,
     width: "42%",
     borderRadius: 11,
-    backgroundColor: "#fff",
-    borderColor: "#009245",
+    backgroundColor: colors.white,
+    borderColor: colors.primaryBg,
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",

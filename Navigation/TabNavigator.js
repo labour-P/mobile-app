@@ -10,6 +10,7 @@ import TrendsIcon from "../svg/TrendsIcon";
 import { Ionicons } from "@expo/vector-icons";
 import NotificationsIcon from "../svg/NotificationsIcon";
 import UserIcon from "../svg/User";
+import { colors } from "../constants/color";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -25,15 +26,15 @@ function MyIosTabs() {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      activeColor={"#ccc"}
-      inactiveColor="#c0c0c0"
+      activeColor={colors.greenText}
+      inactiveColor={colors.primaryGray}
       labeled={true}
       shifting={false}
       barStyle={{
-        backgroundColor: "#fff",
+        backgroundColor: colors.white,
         paddingVertical: 5,
         fontSize: 25,
-        shadowColor: "#000",
+        shadowColor: colors.darkText,
         shadowOffset: {
           width: 0,
           height: 2,
@@ -42,7 +43,7 @@ function MyIosTabs() {
         shadowRadius: 3.84,
         elevation: 5,
         zIndex: -1,
-        borderTopColor: "#eee",
+        borderTopColor: colors.primaryGray,
         borderTopWidth: 1,
       }}
     >
@@ -89,15 +90,15 @@ function MyAndroidTabs() {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      activeColor={"#039951"}
-      inactiveColor="#c0c0c0"
+      activeColor={colors.greenText}
+      inactiveColor={colors.primaryGray}
       labeled={true}
       shifting={false}
       barStyle={{
-        backgroundColor: "#fff",
+        backgroundColor: colors.white,
         paddingVertical: 5,
         fontSize: 25,
-        shadowColor: "#000",
+        shadowColor: colors.black,
         shadowOffset: {
           width: 0,
           height: 2,
@@ -106,7 +107,7 @@ function MyAndroidTabs() {
         shadowRadius: 3.84,
         elevation: 5,
         zIndex: -1,
-        borderTopColor: "#eee",
+        borderTopColor: colors.primaryGray,
         borderTopWidth: 1,
       }}
     >
@@ -157,6 +158,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     position: "absolute",
     top: 10,
-    color: "#000",
+    color: colors.black,
   },
 });

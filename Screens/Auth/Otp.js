@@ -17,6 +17,7 @@ import ForwardForever from "../../components/general/ForwardForever";
 import HeadingText from "../../components/general/HeadingText";
 import LinkText from "../../components/general/LinkText";
 import Wrapper from "../../components/general/Wrapper";
+import { colors } from "../../constants/color";
 import OtpSvg from "../../svg/OtpSvg";
 import { errorOtp } from "./error";
 
@@ -67,7 +68,7 @@ const Otp = ({ navigation }) => {
             }}
           >
             we just sent a one time password to your mobile number
-            <Text style={{ color: "#039951" }}> *****91123</Text>
+            <Text style={{ color: colors.greenText }}> *****91123</Text>
           </BodyTextLight>
         </View>
         <View style={styles.otpDiv}>
@@ -86,7 +87,7 @@ const Otp = ({ navigation }) => {
           </BodyTextBold>
           <LinkText
             style={{
-              color: "#008325",
+              color: colors.greenText,
               fontFamily: "bold",
               marginTop: 10,
               fontSize: 15,

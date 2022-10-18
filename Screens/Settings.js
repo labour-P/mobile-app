@@ -5,6 +5,7 @@ import FloatingBtn from "../components/general/Floatingbtn";
 import BodyTextBold from "../components/general/BodyTextBold";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions/auth";
+import { colors } from "../constants/color";
 
 const Settings = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -18,19 +19,16 @@ const Settings = ({ navigation }) => {
       id: 1,
       title: "My Profile",
       link: () => navigation.navigate("ProfileScreen"),
-      icon: <FontAwesome5 name="user-circle" size={25} color="black" />,
+      icon: (
+        <FontAwesome5 name="user-circle" size={25} color={colors.darkText} />
+      ),
     },
-    // {
-    //   id: 2,
-    //   title: "Notification Settings",
-    //   link: () => navigation.navigate("ProfileScreen"),
-    //   icon: <Ionicons name="notifications-outline" size={25} color="black" />,
-    // },
+
     {
       id: 3,
       title: "Logout",
       link: handleLogout,
-      icon: <AntDesign name="logout" size={25} color="black" />,
+      icon: <AntDesign name="logout" size={25} color={colors.darkText} />,
     },
   ];
 
@@ -47,7 +45,11 @@ const Settings = ({ navigation }) => {
               <View>{item.icon}</View>
               <BodyTextBold style={styles.text}>{item.title}</BodyTextBold>
             </View>
-            <Ionicons name="chevron-forward-outline" size={30} color="black" />
+            <Ionicons
+              name="chevron-forward-outline"
+              size={30}
+              color={colors.darkText}
+            />
           </TouchableOpacity>
         ))}
       </View>
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     position: "relative",
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     zIndex: -1,
     paddingTop: 20,
   },
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: "row",
     paddingVertical: 20,
-    borderTopColor: "#eee",
+    borderTopColor: colors.primaryGray,
     borderTopWidth: 1,
     paddingHorizontal: 15,
     justifyContent: "space-between",

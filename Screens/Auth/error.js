@@ -55,7 +55,8 @@ export const emailAndPhoneError = ({ phone, email }, setError) => {
 };
 
 export const loginError = ({ email, password }, setError) => {
-  if (!isEmail(email)) {
+  const userEmail = email.trim();
+  if (!isEmail(userEmail)) {
     setError((error) => ({
       ...error,
       email: "please input a valid email",

@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
+import { colors } from "../../constants/color";
 
 const BoldText = (props) => {
   return (
@@ -11,7 +12,8 @@ export default BoldText;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: "bold",
+    color: colors.darkText,
   },
 });

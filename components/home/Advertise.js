@@ -1,5 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { colors } from "../../constants/color";
 import BodyTextBold from "../general/BodyTextBold";
 import Card from "../general/Card";
 
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   overlay: {
     position: "absolute",
     bottom: 0,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     width: "100%",
     height: 50,
     opacity: 0.3,
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   overlayText: {
-    color: "#fff",
+    color: colors.white,
     fontFamily: "bold",
     textTransform: "uppercase",
     textAlign: "center",

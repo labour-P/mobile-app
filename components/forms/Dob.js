@@ -9,6 +9,7 @@ import {
 import BodyTextBold from "../general/BodyTextBold";
 import { Feather } from "@expo/vector-icons";
 import ErrorText from "../general/ErrorText";
+import { colors } from "../../constants/color";
 
 const Dob = (props) => {
   const [inputStyle, setInputStyle] = useState({});
@@ -54,7 +55,7 @@ const Dob = (props) => {
       <View style={styles.inputDiv}>
         <TextInput
           style={inputStyle}
-          selectionColor={"#008325"}
+          selectionColor={colors.primaryBg}
           autoCorrect={false}
           autoCapitalize="none"
           importantForAutofill={"no"}
@@ -66,7 +67,7 @@ const Dob = (props) => {
             style={styles.icon}
             name="calendar"
             size={24}
-            color="black"
+            color={colors.black}
           />
         </View>
       </View>
@@ -79,40 +80,38 @@ export default Dob;
 
 const styles = StyleSheet.create({
   input: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#c5c6cc",
+    fontFamily: "normal",
+    borderColor: colors.primaryGray,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   err: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#d63e39",
+    fontFamily: "normal",
+    borderColor: colors.error,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   edit: {
     color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#008325",
+    fontFamily: "normal",
+    borderColor: colors.primaryBg,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   div: {
     marginVertical: 8,

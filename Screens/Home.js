@@ -7,6 +7,7 @@ import Advertise from "../components/home/Advertise";
 import Support from "../components/home/Support";
 
 import FloatingBtn from "../components/general/Floatingbtn";
+import { colors } from "../constants/color";
 
 const Home = ({ navigation }) => {
   return (
@@ -34,13 +35,13 @@ export default Home;
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     zIndex: -1,
   },
   mainView: {
     flex: 1,
     position: "relative",
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     marginBottom: 50,
   },
 });

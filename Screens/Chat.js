@@ -4,6 +4,7 @@ import BodyTextLight from "../components/general/BodyTextLight";
 import HeadingText from "../components/general/HeadingText";
 import LinkText from "../components/general/LinkText";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "../constants/color";
 
 const Chat = ({ navigation, route }) => {
   const { person, contacts } = route.params;
@@ -20,7 +21,7 @@ const Chat = ({ navigation, route }) => {
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => item.action()} style={styles.list}>
               <BodyTextLight>{item.text}</BodyTextLight>
-              <Ionicons name={item.icon} size={24} color="black" />
+              <Ionicons name={item.icon} size={24} color={colors.black} />
             </TouchableOpacity>
           )}
         />
@@ -34,7 +35,7 @@ export default Chat;
 const styles = StyleSheet.create({
   list: {
     paddingVertical: 20,
-    borderBottomColor: "#ccc",
+    borderBottomColor: colors.primaryGray,
     borderBottomWidth: 1,
     paddingLeft: 20,
     flexDirection: "row",

@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { colors } from "../../constants/color";
 import BodyTextBold from "../general/BodyTextBold";
 import BodyTextLight from "../general/BodyTextLight";
 
@@ -42,7 +43,7 @@ const OtpInput = (props) => {
     const isDigitFocused = isCurrentDigit || (isLastDigit && isCodeFull);
 
     const OTPInputFocused = {
-      borderColor: "green",
+      borderColor: colors.primaryBg,
       borderWidth: 2,
       width: 40,
       height: 40,
@@ -52,7 +53,7 @@ const OtpInput = (props) => {
     };
 
     const OTPInput = {
-      borderColor: "#ccc",
+      borderColor: colors.primaryGray,
       borderWidth: 2,
       width: 40,
       height: 40,
@@ -88,7 +89,7 @@ const OtpInput = (props) => {
       </TouchableOpacity>
       <TextInput
         style={styles.input}
-        selectionColor={"#008325"}
+        selectionColor={colors.primaryBg}
         autoCorrect={false}
         autoCapitalize="none"
         importantForAutofill={"no"}

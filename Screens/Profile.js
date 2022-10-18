@@ -9,6 +9,7 @@ import { Ionicons, Fontisto, AntDesign } from "@expo/vector-icons";
 import ProfileInitials from "../components/general/ProfileInitials";
 import { getInitials } from "../utils/getInitials";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "../constants/color";
 
 const Profile = ({ navigation }) => {
   const { user } = useSelector((state) => state.auth);
@@ -20,13 +21,13 @@ const Profile = ({ navigation }) => {
       <View style={styles.div}>
         <View
           style={{
-            borderBottomColor: "#ccc",
+            borderBottomColor: colors.primaryGray,
             borderBottomWidth: 1,
             paddingHorizontal: 20,
             paddingBottom: 10,
           }}
         >
-          <HeadingText style={{ fontSize: 18, textTransform: "capitalize" }}>
+          <HeadingText style={{ textTransform: "capitalize" }}>
             {user.name}
           </HeadingText>
           <View style={styles.alignDiv}>
@@ -50,15 +51,19 @@ const Profile = ({ navigation }) => {
           </View>
           <View style={styles.options}>
             <View style={styles.flex}>
-              <Ionicons name="location-outline" size={18} color="black" />
+              <Ionicons
+                name="location-outline"
+                size={18}
+                color={colors.black}
+              />
               <BodyTextBold style={styles.opacity}> {user.state}</BodyTextBold>
             </View>
             <View style={styles.flex}>
-              <Fontisto name="email" size={18} color="black" />
+              <Fontisto name="email" size={18} color={colors.black} />
               <BodyTextBold style={styles.opacity}> {user.email}</BodyTextBold>
             </View>
             <View style={styles.flex}>
-              <AntDesign name="phone" size={18} color="black" />
+              <AntDesign name="phone" size={18} color={colors.black} />
               <BodyTextBold style={styles.opacity}> {user.phone}</BodyTextBold>
             </View>
           </View>
@@ -76,11 +81,11 @@ export default Profile;
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.white,
   },
   div: {
     // paddingHorizontal: 20,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     flex: 1,
   },
   alignDiv: {
@@ -90,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   edit: {
-    borderColor: "#ccc",
+    borderColor: colors.primaryGray,
     borderWidth: 1,
     borderRadius: 20,
     padding: 10,

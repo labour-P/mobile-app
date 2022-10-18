@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { getPost } from "../../redux/actions/post";
 import ErrorDiv from "../../utils/ErrorDiv";
 import BodyTextLight from "../../components/general/BodyTextLight";
+import { colors } from "../../constants/color";
 
 const Trends = ({ navigation }) => {
   const [search, setSearch] = useState("");
@@ -62,7 +63,7 @@ const Trends = ({ navigation }) => {
     console.log("loading...");
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#008325" />
+        <ActivityIndicator size="large" color={colors.greenText} />
       </View>
     );
   }
@@ -76,7 +77,7 @@ const Trends = ({ navigation }) => {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
       >
-        <PostDiv />
+        <PostDiv navigation={navigation} openComment={true} />
       </ScrollView>
       {/* Floating button */}
       <FloatingBtn navigation={navigation} />
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     // alignItems: "center",
     position: "relative",
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     zIndex: -1,
     height: "100%",
   },

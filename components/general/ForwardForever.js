@@ -7,9 +7,14 @@ const ForwardForever = () => {
   return (
     <View>
       <BodyTextLight
-        style={{ fontSize: 12, fontFamily: "medium", opacity: 0.8 }}
+        style={{
+          fontSize: 12,
+          fontFamily: "medium",
+          opacity: 0.8,
+          textTransform: "uppercase",
+        }}
       >
-        Forward forever
+        Forward ever
       </BodyTextLight>
     </View>
   );

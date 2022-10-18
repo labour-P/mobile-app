@@ -7,6 +7,7 @@ import {
   Dimensions,
   Linking,
 } from "react-native";
+import { colors } from "../../constants/color";
 import Chat from "../../svg/Chat";
 import BodyTextLight from "../general/BodyTextLight";
 import Card from "./../general/Card";
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   overlayText: {
-    color: "#fff",
+    color: colors.white,
     fontSize: 13,
     textAlign: "center",
     marginRight: 5,
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     width: "100%",
-    backgroundColor: "#000",
+    backgroundColor: colors.black,
     opacity: 0.3,
     height: 40,
     zIndex: 1,

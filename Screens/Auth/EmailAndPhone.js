@@ -51,7 +51,7 @@ const EmailAndPhone = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <HeadingText style={{ fontSize: 18, textAlign: "center" }}>
+          <HeadingText style={{ textAlign: "center" }}>
             Please enter your email and phone number
           </HeadingText>
           <BodyTextLight

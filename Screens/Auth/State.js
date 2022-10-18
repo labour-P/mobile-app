@@ -120,9 +120,7 @@ const State = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <HeadingText style={{ fontSize: 18 }}>
-            State and L.G.A area where you reside
-          </HeadingText>
+          <HeadingText>State and L.G.A area where you reside</HeadingText>
         </View>
         <View>
           <SelectInput

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
+import { colors } from "../../constants/color";
 import BodyTextBold from "./BodyTextBold";
 
 const PostButton = ({ postDataIsValid, handleSubmit, loading }) => {
@@ -14,8 +15,12 @@ const PostButton = ({ postDataIsValid, handleSubmit, loading }) => {
       onPress={handleSubmit}
       style={postDataIsValid ? styles.invalidBtn : styles.btn}
     >
-      <BodyTextBold style={{ color: "white" }}>
-        {loading ? <ActivityIndicator size="small" color="white" /> : "Post"}
+      <BodyTextBold style={{ color: colors.white }}>
+        {loading ? (
+          <ActivityIndicator size="small" color={colors.white} />
+        ) : (
+          "Post"
+        )}
       </BodyTextBold>
     </TouchableOpacity>
   );
@@ -25,11 +30,11 @@ export default PostButton;
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: "#039951",
+    backgroundColor: colors.primaryBg,
     paddingHorizontal: 25,
     paddingVertical: 8,
     borderRadius: 10,
-    color: "#fff",
+    color: colors.white,
     fontSize: 15,
   },
   invalidBtn: {
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 8,
     borderRadius: 10,
-    color: "#fff",
+    color: colors.white,
     fontSize: 15,
     opacity: 0.5,
   },

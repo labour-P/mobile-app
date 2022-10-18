@@ -42,34 +42,30 @@ export const likePost = (data) => {
 };
 
 export const getLikes = async (data) => {
-  return async (dispatch) => {
-    try {
-      const res = await fetch(`${configs.BASE_URL}/api/routes/viewrate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          thread: data,
-        }),
-      });
+  try {
+    const res = await fetch(`${configs.BASE_URL}/api/routes/viewrate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        thread: data,
+      }),
+    });
 
-      if (!res.ok) {
-        const err = await res.json();
+    if (!res.ok) {
+      const err = await res.json();
 
-        console.log(err);
-      }
-
-      const response = await res.json();
-
-      console.log(response);
-      return response;
-
-      dispatch({ type: GET_LIKES, payload: resp });
-    } catch (error) {
-      console.log(error);
+      console.log(err);
     }
-  };
+
+    const response = await res.json();
+
+    console.log(`likes - ${response}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const makeComment = (data) => {
@@ -104,6 +100,8 @@ export const getComments = async (data) => {
     }
 
     const response = await res.json();
+
+    console.log(`comments - ${response}`);
 
     return response;
   } catch (error) {

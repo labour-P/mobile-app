@@ -7,6 +7,7 @@ import {
   View,
   ActivityIndicator,
 } from "react-native";
+import { colors } from "../../constants/color";
 import ErrorText from "./ErrorText";
 
 const ButtonDiv = (props) => {
@@ -22,7 +23,7 @@ const ButtonDiv = (props) => {
         style={{ ...styles.button, ...props.styles }}
       >
         {props.loading ? (
-          <ActivityIndicator color={"#fff"} size="small" />
+          <ActivityIndicator color={colors.white} size="small" />
         ) : (
           <Text style={{ ...styles.text }}>{props.children}</Text>
         )}
@@ -36,14 +37,14 @@ export default ButtonDiv;
 const styles = StyleSheet.create({
   text: {
     fontFamily: "medium",
-    fontSize: 15,
-    color: "#fff",
+    fontSize: 14,
+    color: colors.white,
   },
   button: {
     height: 49,
     width: "90%",
     borderRadius: 11,
-    backgroundColor: "#008325",
+    backgroundColor: colors.primaryBg,
     justifyContent: "center",
     alignItems: "center",
   },

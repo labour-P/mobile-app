@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import { colors } from "../../constants/color";
 
 const SelectImage = ({ setPost, images }) => {
   const pickImage = async () => {
@@ -25,7 +26,7 @@ const SelectImage = ({ setPost, images }) => {
 
   return (
     <TouchableOpacity onPress={pickImage} style={styles.iconBtn}>
-      <Feather name="image" size={30} color="#039951" />
+      <Feather name="image" size={30} color={colors.primaryBg} />
     </TouchableOpacity>
   );
 };

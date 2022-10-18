@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
+import { colors } from "../../constants/color";
 
 const FloatingBtn = ({ navigation }) => {
   return (
@@ -10,7 +11,7 @@ const FloatingBtn = ({ navigation }) => {
         onPress={() => navigation.navigate("CreatePostScreen")}
         style={styles.float}
       >
-        <AntDesign name="pluscircle" size={55} color="#008325" />
+        <AntDesign name="pluscircle" size={55} color={colors.primaryBg} />
       </TouchableOpacity>
     </View>
   );

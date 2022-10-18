@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { setAge } from "../../redux/actions/auth";
 import CalendarSvg from "../../svg/CalendarSvg";
 import Wrapper from "../../components/general/Wrapper";
+import { colors } from "../../constants/color";
 
 const DateOfBirth = ({ navigation }) => {
   const [calendar, setCalendar] = useState("");
@@ -77,9 +78,7 @@ const DateOfBirth = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <HeadingText style={{ fontSize: 18 }}>
-            Please lets have your date of birth
-          </HeadingText>
+          <HeadingText>Please lets have your date of birth</HeadingText>
           <View>
             {calendar && (
               <View style={styles.calendarDiv}>
@@ -89,12 +88,15 @@ const DateOfBirth = ({ navigation }) => {
                     allowRangeSelection={true}
                     allowBackwardRangeSelect={true}
                     previousTitleStyle={{
-                      color: "#3300CC",
+                      color: colors.primaryBg,
                       fontFamily: "bold",
                     }}
-                    nextTitleStyle={{ color: "#3300CC", fontFamily: "bold" }}
-                    selectedDayColor={"#3300cc"}
-                    selectedDayTextColor={"#3300cc"}
+                    nextTitleStyle={{
+                      color: colors.primaryBg,
+                      fontFamily: "bold",
+                    }}
+                    selectedDayColor={colors.primaryBg}
+                    selectedDayTextColor={colors.primaryBg}
                   />
                   <TouchableOpacity onPress={() => setCalendar(false)}>
                     <BodyTextBold style={styles.cancelBtn}>Cancel</BodyTextBold>
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   container: {
-    backgroundColor: "#ffffff",
+    backgroundColor: colors.white,
     height: "100%",
     paddingTop: 40,
   },
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   err: {
-    color: "red",
+    color: colors.error,
     marginTop: Dimensions.get("window").height / -30,
     textAlign: "right",
     paddingRight: 30,
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
     zIndex: -100,
   },
   placeholderStyle: {
-    color: "#848484",
+    color: colors.darkText,
     fontFamily: "normal",
     fontSize: 14,
   },
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
   selectedTextStyle: {
     fontFamily: "normal",
     fontSize: 14,
-    color: "#000",
+    color: colors.darkText,
   },
   calendarDiv: {
     // top: 40,
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
   calendarContainer: {
     position: "absolute",
     zIndex: 100,
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     width: "95%",
     height: 300,
     top: 20,
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     right: 10,
     bottom: 0,
     paddingHorizontal: 10,
-    shadowColor: "#000",
+    shadowColor: colors.darkText,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   cancelBtn: {
-    color: "red",
+    color: colors.error,
     textAlign: "right",
     marginTop: 5,
     marginRight: 30,

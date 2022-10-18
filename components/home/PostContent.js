@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { colors } from "../../constants/color";
 import Comment from "../../svg/Comment";
 import Speaker from "../../svg/Speaker";
 import BodyTextBold from "../general/BodyTextBold";
@@ -13,17 +14,17 @@ const PostContent = ({ navigation }) => {
   return (
     <View style={styles.postDiv}>
       <Card style={styles.div}>
-        <HeadingText style={{ fontSize: 20 }}>
-          Latest obidient content
+        <HeadingText style={{ fontFamily: "bold" }}>
+          Latest Obidient Content
         </HeadingText>
         <BodyTextLight style={{ paddingVertical: 5 }}>
-          post latest relevant content here to enable other obididents know
+          post latest relevant content here to enable other Obididents know
           whats.
         </BodyTextLight>
         <View style={{ marginTop: 10 }}>
           <LinkText
             onPress={() => navigation.navigate("CreatePostScreen")}
-            style={{ color: "#009245", fontSize: 16 }}
+            style={{ color: colors.greenText, fontSize: 16 }}
           >
             Add new post
           </LinkText>
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   },
   div: {
     width: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     padding: 10,
   },
   chatDiv: {

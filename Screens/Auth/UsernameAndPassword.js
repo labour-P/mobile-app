@@ -68,9 +68,7 @@ const UsernameAndPassword = ({ navigation }) => {
           <SignupSvg />
         </View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <HeadingText style={{ fontSize: 18 }}>
-            Choose a username and password
-          </HeadingText>
+          <HeadingText>Choose a username and password</HeadingText>
         </View>
         <View>
           <InputDiv

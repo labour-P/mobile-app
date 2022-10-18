@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import BodyTextBold from "../general/BodyTextBold";
 import { Dropdown } from "react-native-element-dropdown";
 import ErrorText from "../general/ErrorText";
+import { colors } from "../../constants/color";
 
 const SelectInput = (props) => {
   const [inputStyle, setInputStyle] = useState({});
@@ -62,46 +63,47 @@ export default SelectInput;
 
 const styles = StyleSheet.create({
   input: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 60,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#c5c6cc",
+    fontFamily: "normal",
+    borderColor: colors.primaryGray,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
+    textTransform: "uppercase",
   },
   err: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 60,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#d63e39",
+    fontFamily: "normal",
+    borderColor: colors.error,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
+    textTransform: "uppercase",
   },
   edit: {
     color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 60,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#008325",
+    fontFamily: "normal",
+    borderColor: colors.primaryBg,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
+    textTransform: "uppercase",
   },
   div: {
     marginVertical: 3,
   },
   placeholderStyle: {
-    color: "#848484",
+    color: colors.darkText,
     fontFamily: "normal",
     fontSize: 14,
   },
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
   selectedTextStyle: {
     fontFamily: "normal",
     fontSize: 14,
-    color: "#000",
+    color: colors.darkText,
   },
   inputSearchStyle: {
     borderRadius: 10,

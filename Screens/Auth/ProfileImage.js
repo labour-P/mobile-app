@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import formData from "../../utils/formData";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import { uploadProfileImg } from "../../redux/actions/auth";
+import { colors } from "../../constants/color";
 
 const ProfileImage = () => {
   const [image, setImage] = useState(null);
@@ -46,12 +47,16 @@ const ProfileImage = () => {
   return (
     <SafeAreaView style={styles.view}>
       <View style={styles.div}>
-        <HeadingText style={{ fontSize: 22, textAlign: "center" }}>
+        <HeadingText style={{ textAlign: "center" }}>
           Choose a profile image
         </HeadingText>
         <View style={styles.center}>
           {!image ? (
-            <FontAwesome name="user-circle-o" size={200} color="#555" />
+            <FontAwesome
+              name="user-circle-o"
+              size={200}
+              color={colors.primaryGray}
+            />
           ) : (
             <Image
               source={{ uri: image.uri }}
@@ -85,7 +90,7 @@ export default ProfileImage;
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
   },
   div: {
     paddingHorizontal: 20,
@@ -97,7 +102,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   btn: {
-    color: "#008325",
+    color: colors.greenText,
     fontSize: 18,
   },
 });

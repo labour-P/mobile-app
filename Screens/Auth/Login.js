@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { loginError } from "./error";
 import { getInitals } from "../../utils/getInitials";
 import Wrapper from "../../components/general/Wrapper";
+import { colors } from "../../constants/color";
 
 const Login = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -88,7 +89,7 @@ const Login = ({ navigation }) => {
             </BodyTextBold>
             <LinkText
               onPress={() => navigation.navigate("RecoverPasswordScreen")}
-              style={{ color: "#008325", paddingLeft: 5 }}
+              style={{ color: colors.greenText, paddingLeft: 5 }}
             >
               click here
             </LinkText>
@@ -98,7 +99,7 @@ const Login = ({ navigation }) => {
           <BodyTextBold style={{ opacity: 0.8 }}>First time here?</BodyTextBold>
           <LinkText
             onPress={() => navigation.navigate("SignupScreen")}
-            style={{ color: "#008325", paddingLeft: 5 }}
+            style={{ color: colors.greenText, paddingLeft: 5 }}
           >
             Sign up
           </LinkText>

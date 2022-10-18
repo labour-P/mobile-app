@@ -44,7 +44,7 @@ const ResetPassword = ({ navigation }) => {
       <View style={styles.view}>
         <Logo />
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <HeadingText style={{ fontSize: 18 }}>Reset password now</HeadingText>
+          <HeadingText>Reset password now</HeadingText>
           <BodyTextLight
             style={{
               textAlign: "center",

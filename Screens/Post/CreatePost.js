@@ -21,6 +21,7 @@ import { generateRandomString } from "../../utils/generateRandomString";
 import PostButton from "../../components/general/PostButton";
 import ProfileInitials from "../../components/general/ProfileInitials";
 import { getInitials } from "../../utils/getInitials";
+import { colors } from "../../constants/color";
 
 const CreatePost = ({ navigation }) => {
   const [post, setPost] = useState({
@@ -40,7 +41,7 @@ const CreatePost = ({ navigation }) => {
   const removeImage = (uri) => {
     const newImages = post.images.filter((image) => image.uri !== uri);
 
-    setImages((post) => ({ ...post, images: newImages }));
+    setPost((post) => ({ ...post, images: newImages }));
   };
 
   useEffect(() => {
@@ -81,7 +82,7 @@ const CreatePost = ({ navigation }) => {
       {error.res && <ErrorDiv error={error} setError={setError} />}
       <View style={styles.topDiv}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <AntDesign name="close" size={30} color="black" />
+          <AntDesign name="close" size={30} color={colors.darkText} />
         </TouchableOpacity>
         <View>
           <PostButton
@@ -128,7 +129,11 @@ const CreatePost = ({ navigation }) => {
                     style={{ position: "absolute", top: -8, right: -8 }}
                   >
                     <Text>
-                      <MaterialIcons name="cancel" size={30} color="black" />
+                      <MaterialIcons
+                        name="cancel"
+                        size={30}
+                        color={colors.black}
+                      />
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -148,7 +153,7 @@ const CreatePost = ({ navigation }) => {
                     //     images: post.images,
                     //   })
                     // }
-                    style={{ color: "white", fontSize: 30 }}
+                    style={{ color: colors.white, fontSize: 30 }}
                   >{`+ ${post.images.length - 3}`}</LinkText>
                 )}
               </View>
@@ -159,15 +164,11 @@ const CreatePost = ({ navigation }) => {
       <View style={styles.optionsDiv}>
         <View style={styles.inlineOptions}>
           <SelectImage images={post.images} setPost={setPost} />
-          {/* <TouchableOpacity style={styles.iconBtn}>
-            <Ionicons name="md-location-outline" size={30} color="#039951" />
-            {/* <SetLocation /> 
-          </TouchableOpacity> */}
         </View>
         <View style={styles.inlineOptionsTwo}>
-          <Fontisto name="world-o" size={20} color="#039951" />
+          <Fontisto name="world-o" size={20} color={colors.greenText} />
           <BodyTextLight
-            style={{ marginLeft: 15, color: "#039951", fontSize: 12 }}
+            style={{ marginLeft: 15, color: colors.greenText, fontSize: 12 }}
           >
             Everyone can reply
           </BodyTextLight>
@@ -182,7 +183,7 @@ export default CreatePost;
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     marginTop: 30,
     justifyContent: "space-between",
   },
@@ -230,7 +231,7 @@ const styles = StyleSheet.create({
   },
   optionsDiv: {
     flexDirection: "row",
-    borderTopColor: "#eee",
+    borderTopColor: colors.primaryGray,
     borderTopWidth: 2,
     marginBottom: 10,
     paddingTop: 10,
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
   },
   inlineOptionsTwo: {
     flexDirection: "row",
-    borderLeftColor: "#039951",
+    borderLeftColor: colors.greenText,
     borderLeftWidth: 1,
     paddingLeft: 20,
   },

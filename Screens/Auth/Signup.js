@@ -11,6 +11,7 @@ import { nameError } from "./error";
 import { setName } from "../../redux/actions/auth";
 
 import { useDispatch } from "react-redux";
+import { colors } from "../../constants/color";
 
 const Signup = ({ navigation }) => {
   const [userName, setUserName] = useState({
@@ -68,13 +69,14 @@ const Signup = ({ navigation }) => {
         <View>
           <LinkText
             onPress={() => navigation.navigate("SignupScreen")}
-            style={{ color: "#008325", paddingLeft: 5 }}
+            style={{ color: colors.greenText, paddingLeft: 5 }}
           >
             I agree to the terms of service provacy policy
           </LinkText>
         </View>
+        ÍAS
         <View>
-          <ButtonDiv onPress={handlSubmit}>Submit</ButtonDiv>
+          Í<ButtonDiv onPress={handlSubmit}>Submit</ButtonDiv>
         </View>
         <ForwardForever />
       </View>

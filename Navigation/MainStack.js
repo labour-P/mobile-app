@@ -11,6 +11,7 @@ import CreatePost from "../Screens/Post/CreatePost";
 import ViewImages from "../Screens/Post/ViewImages";
 import Chat from "../Screens/Chat";
 import EditProfile from "../Screens/EditProfile";
+import ViewPost from "../Screens/Post/ViewPost";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,9 @@ export function MainStack() {
       </Stack.Screen>
       <Stack.Screen name="EditProfileScreen">
         {(props) => <EditProfile {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="ViewPostScreen">
+        {(props) => <ViewPost {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

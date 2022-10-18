@@ -5,12 +5,17 @@ import FloatingBtn from "../components/general/Floatingbtn";
 import { Ionicons } from "@expo/vector-icons";
 import BodyTextLight from "../components/general/BodyTextLight";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "../constants/color";
 
 const Notifications = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.div}>
       <View style={styles.view}>
-        <Ionicons name="ios-notifications-outline" size={100} color="#555" />
+        <Ionicons
+          name="ios-notifications-outline"
+          size={100}
+          color={colors.primaryGray}
+        />
         <BodyTextLight style={{ textAlign: "center", fontSize: 16 }}>
           Personalized notifcations feed coming soon, stay tuned
         </BodyTextLight>
@@ -27,7 +32,7 @@ export default Notifications;
 const styles = StyleSheet.create({
   div: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
@@ -35,7 +40,7 @@ const styles = StyleSheet.create({
   view: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     zIndex: -1,
     paddingHorizontal: 20,
     width: "100%",

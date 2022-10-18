@@ -16,6 +16,7 @@ import {
 import MyTab from "./TabNavigator";
 import { Feather } from "@expo/vector-icons";
 import Profile from "../Screens/Profile";
+import { colors } from "../constants/color";
 
 const Drawer = createDrawerNavigator();
 
@@ -25,15 +26,15 @@ export default function DrawerTab() {
       initialRouteName="HomeScreen"
       screenOptions={({ navigation }) => ({
         headerStyle: {
-          backgroundColor: "#fff",
-          height: 120,
+          backgroundColor: colors.white,
+          height: 70,
         },
         headerLeft: () => (
           <TouchableOpacity
             onPress={() => navigation.toggleDrawer()}
             style={styles.headerLeft}
           >
-            <Feather name="menu" size={24} color="black" />
+            <Feather name="menu" size={24} color={colors.black} />
           </TouchableOpacity>
         ),
         headerTitle: () => (

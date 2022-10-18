@@ -16,8 +16,9 @@ import CommentSvg from "../../svg/CommentSvg";
 import ShareSvg from "../../svg/Share";
 import Like from "../../svg/Like";
 import configs from "../../config/config";
+import { NavigationContainer } from "@react-navigation/native";
 
-const ActionDiv = ({ setOpenComment, openComment, thread }) => {
+const ActionDiv = ({ navigation, post, openComment }) => {
   const { user } = useSelector((state) => state.auth);
   const { likes } = useSelector((state) => state.post);
   const dispatch = useDispatch();
@@ -40,29 +41,16 @@ const ActionDiv = ({ setOpenComment, openComment, thread }) => {
     console.log(thread);
     try {
       await dispatch(likePost(data));
-      await dispatch(getLikes(data));
     } catch (error) {
       setError((errors) => ({ ...errors, res: error.message }));
     }
   };
 
-  const handleComment = async (thread) => {
-    if (openComment === thread) {
-      setOpenComment("");
+  const handleComment = () => {
+    if (openComment) {
+      navigation.navigate("ViewPostScreen", { post: post });
     } else {
-      setOpenComment(thread);
-      setLoading(true);
-      console.log(thread);
-      dispatch({ type: GET_COMMENTS, payload: [] });
-      try {
-        const res = await getComments(thread);
-
-        dispatch({ type: GET_COMMENTS, payload: res });
-      } catch (error) {
-        console.log(error);
-      }
-
-      setLoading(false);
+      return;
     }
   };
 
@@ -77,23 +65,23 @@ const ActionDiv = ({ setOpenComment, openComment, thread }) => {
   };
 
   return (
-    <View>
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "flex-end",
+      }}
+    >
       <View style={styles.div}>
-        <TouchableOpacity onPress={() => handleComment(thread)}>
+        <TouchableOpacity onPress={handleComment}>
           <CommentSvg />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleLike(thread)}>
+        <TouchableOpacity onPress={() => handleLike(post.thread)}>
           <Like />
           <BodyTextLight>{likes?.length}</BodyTextLight>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => onShare()}>
           <ShareSvg />
         </TouchableOpacity>
-      </View>
-      <View>
-        {openComment === thread && (
-          <CommentDiv loadComments={loading} thread={thread} />
-        )}
       </View>
     </View>
   );
@@ -107,5 +95,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 15,
     paddingRight: 20,
+    width: "80%",
   },
 });

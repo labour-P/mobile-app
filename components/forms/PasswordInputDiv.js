@@ -9,6 +9,7 @@ import {
 import BodyTextBold from "../general/BodyTextBold";
 import { Entypo } from "@expo/vector-icons";
 import ErrorText from "../general/ErrorText";
+import { colors } from "../../constants/color";
 
 const PasswordInputDiv = (props) => {
   const [inputStyle, setInputStyle] = useState({});
@@ -54,7 +55,7 @@ const PasswordInputDiv = (props) => {
       <View style={styles.inputDiv}>
         <TextInput
           style={inputStyle}
-          selectionColor={"#008325"}
+          selectionColor={colors.primaryBg}
           autoCorrect={false}
           autoCapitalize="none"
           importantForAutofill={"no"}
@@ -63,7 +64,12 @@ const PasswordInputDiv = (props) => {
         />
         {visible ? (
           <TouchableOpacity onPress={handleVisble}>
-            <Entypo style={styles.icon} name="eye" size={24} color="black" />
+            <Entypo
+              style={styles.icon}
+              name="eye"
+              size={24}
+              color={colors.black}
+            />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={handleVisble}>
@@ -71,7 +77,7 @@ const PasswordInputDiv = (props) => {
               style={styles.icon}
               name="eye-with-line"
               size={24}
-              color="#008325"
+              color={colors.primaryBg}
             />
           </TouchableOpacity>
         )}
@@ -85,40 +91,38 @@ export default PasswordInputDiv;
 
 const styles = StyleSheet.create({
   input: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#c5c6cc",
+    fontFamily: "normal",
+    borderColor: colors.primaryGray,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   err: {
-    color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#d63e39",
+    fontFamily: "normal",
+    borderColor: colors.error,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   edit: {
     color: "#fff",
     width: Dimensions.get("window").width - 30,
     height: 49,
     fontSize: 16,
-    fontFamily: "medium",
-    borderColor: "#008325",
+    fontFamily: "normal",
+    borderColor: colors.primaryBg,
     borderWidth: 1,
     borderRadius: 11,
     paddingLeft: 15,
-    color: "#000",
+    color: colors.darkText,
   },
   div: {
     marginVertical: 5,

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { colors } from "../../constants/color";
 import BodyTextLight from "../general/BodyTextLight";
 
 const Filter = () => {
@@ -49,10 +50,9 @@ export default Filter;
 const styles = StyleSheet.create({
   div: {
     flexDirection: "row",
-    borderBottomColor: "#eee",
+    borderBottomColor: colors.primaryGray,
     borderBottomWidth: 1,
-    // height: 20,
-    // backgroundColor: "red",
+
     marginTop: -5,
   },
   filterText: {
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   selected: {
-    borderBottomColor: "#039951",
+    borderBottomColor: colors.greenText,
     borderBottomWidth: 3,
     width: "25%",
     flexDirection: "row",

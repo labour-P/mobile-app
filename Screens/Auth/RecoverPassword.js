@@ -43,7 +43,7 @@ const RecoverPassword = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <HeadingText style={{ fontSize: 18 }}>Phone number</HeadingText>
+          <HeadingText style={{}}>Phone number</HeadingText>
           <BodyTextLight
             style={{
               textAlign: "center",
