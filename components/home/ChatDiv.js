@@ -9,66 +9,70 @@ import {
 } from "react-native";
 import { colors } from "../../constants/color";
 import Chat from "../../svg/Chat";
+import { generateId } from "../../utils/generateRandomString";
 import BodyTextLight from "../general/BodyTextLight";
 import Card from "./../general/Card";
+import { Octicons } from "@expo/vector-icons";
 
 const ChatDiv = ({ navigation }) => {
   const chats = [
     {
       id: 1,
-      img: require("./../../assets/img/obi.png"),
+      img: require("./../../assets/img/obi.jpeg"),
       text: "Chat with Obi",
+      view: "Chat with Mr. Peter Obi",
       person: "Peter Obi",
       contacts: [
         {
           id: 1,
           call: "08162468435",
-          text: "Call Obi",
+          text: "Call",
           icon: "call-outline",
-          action: () => Linking.openURL(`tel:08162468435`),
+          action: `tel:08162468435`,
         },
         {
           id: 2,
           chat: "09125535185",
-          text: "Chat with Obi",
+          text: "Chat via whatsapp",
           icon: "chatbox-outline",
-          action: () => Linking.openURL(`https://wa.me/+2349125535185`),
+          action: `https://wa.me/+2349125535185`,
         },
         {
           id: 3,
           chat: "09125535185",
-          text: "Video call with Obi",
+          text: "Video call via whatsapp",
           icon: "videocam-outline",
-          action: () => Linking.openURL(`https://wa.me/+2349125535185`),
+          action: `https://wa.me/+2349125535185`,
         },
       ],
     },
     {
       id: 2,
       img: require("./../../assets/img/dati.png"),
-      text: " Chat with Ahmed",
+      text: " Chat with Datti",
+      view: "Chat with Sen. Datti Baba-Ahmed",
       person: "Ahmed Datti",
       contacts: [
         {
           id: 1,
           call: "08162419281",
-          text: "Call Datti",
+          text: "Call",
           icon: "call-outline",
-          action: () => Linking.openURL(`tel:08162419281`),
+          action: `tel:08162419281`,
         },
         {
           id: 2,
           chat: " 09125530647",
-          text: "Chat with Datti",
+          text: "Chat via whatsapp",
           icon: "chatbox-outline",
-          action: () => Linking.openURL(`https://wa.me/+2349125530647`),
+          action: `https://wa.me/+2349125530647`,
         },
         {
           id: 3,
           chat: "09125530647",
-          text: "Video call with Datti",
+          text: "Video call via whatsapp",
           icon: "videocam-outline",
-          action: () => Linking.openURL(`https://wa.me/+2349125530647`),
+          action: `https://wa.me/+2349125530647`,
         },
       ],
     },
@@ -77,12 +81,14 @@ const ChatDiv = ({ navigation }) => {
   return (
     <View style={styles.imgDiv}>
       {chats.map((chat) => (
-        <Card key={chat.id} style={styles.imgCard}>
+        <Card key={generateId()} style={styles.imgCard}>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("ChatScreen", {
                 person: chat.person,
                 contacts: chat.contacts,
+                view: chat.view,
+                img: chat.img,
               })
             }
           >
@@ -91,7 +97,11 @@ const ChatDiv = ({ navigation }) => {
               <BodyTextLight style={styles.overlayText}>
                 {chat.text}
               </BodyTextLight>
-              <Chat />
+              <Octicons
+                name="comment-discussion"
+                size={23}
+                color={colors.white}
+              />
             </View>
             <View style={styles.overlay}></View>
           </TouchableOpacity>
@@ -120,7 +130,7 @@ const styles = StyleSheet.create({
   },
   imgCard: {
     width: "47%",
-    height: 180,
+    height: 200,
     overflow: "hidden",
     position: "relative",
   },
@@ -138,7 +148,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     width: "100%",
-    zIndex: 2,
+    zIndex: 10,
   },
   overlay: {
     position: "absolute",

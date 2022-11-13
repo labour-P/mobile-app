@@ -9,6 +9,7 @@ import {
 import { colors } from "../../constants/color";
 import BodyTextBold from "../general/BodyTextBold";
 import BodyTextLight from "../general/BodyTextLight";
+import ErrorText from "../general/ErrorText";
 
 const OtpInput = (props) => {
   const [inputIsFocused, setInputIsFocused] = useState(false);
@@ -44,9 +45,9 @@ const OtpInput = (props) => {
 
     const OTPInputFocused = {
       borderColor: colors.primaryBg,
-      borderWidth: 2,
+      borderWidth: 1,
       width: 40,
-      height: 40,
+      height: 50,
       borderRadius: 10,
       justifyContent: "center",
       alignItems: "center",
@@ -54,9 +55,19 @@ const OtpInput = (props) => {
 
     const OTPInput = {
       borderColor: colors.primaryGray,
-      borderWidth: 2,
+      borderWidth: 1,
       width: 40,
-      height: 40,
+      height: 50,
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+    };
+
+    const OTPerr = {
+      borderColor: colors.error,
+      borderWidth: 1,
+      width: 40,
+      height: 50,
       borderRadius: 10,
       justifyContent: "center",
       alignItems: "center",
@@ -66,43 +77,49 @@ const OtpInput = (props) => {
       inputIsFocused && isDigitFocused ? OTPInputFocused : OTPInput;
 
     return (
-      <View style={styledInputBox} key={index}>
+      <View style={props.error ? OTPerr : styledInputBox} key={index}>
         <BodyTextLight>{digit}</BodyTextLight>
       </View>
     );
   };
 
   return (
-    <View style={styles.div}>
-      {/* <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold> */}
+    <View>
+      <View style={styles.div}>
+        {/* <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold> */}
 
-      <TouchableOpacity
-        style={{
-          width: "90%",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "row",
-        }}
-        onPress={handlePress}
-      >
-        {digitsArr.map(mapDigitFromInput)}
-      </TouchableOpacity>
-      <TextInput
-        style={styles.input}
-        selectionColor={colors.primaryBg}
-        autoCorrect={false}
-        autoCapitalize="none"
-        importantForAutofill={"no"}
-        value={props.otp}
-        onChangeText={props.setOtp}
-        keyboardType="number-pad"
-        maxLength={props.maxLength}
-        returnKeyType={"done"}
-        textContentType="oneTimeCode"
-        ref={textInputRef}
-        onBlur={handleBlur}
-        {...props}
-      />
+        <TouchableOpacity
+          style={{
+            width: "90%",
+            justifyContent: "space-around",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+          onPress={handlePress}
+        >
+          {digitsArr.map(mapDigitFromInput)}
+        </TouchableOpacity>
+
+        <TextInput
+          style={styles.input}
+          selectionColor={colors.primaryBg}
+          autoCorrect={false}
+          autoCapitalize="none"
+          importantForAutofill={"no"}
+          value={props.otp}
+          onChangeText={props.setOtp}
+          keyboardType="number-pad"
+          maxLength={props.maxLength}
+          returnKeyType={"done"}
+          textContentType="oneTimeCode"
+          ref={textInputRef}
+          onBlur={handleBlur}
+          {...props}
+        />
+      </View>
+      {props.error && (
+        <ErrorText style={{ paddingLeft: 20 }}>{props.error}</ErrorText>
+      )}
     </View>
   );
 };

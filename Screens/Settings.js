@@ -6,6 +6,7 @@ import BodyTextBold from "../components/general/BodyTextBold";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions/auth";
 import { colors } from "../constants/color";
+import { generateId } from "../utils/generateRandomString";
 
 const Settings = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const Settings = ({ navigation }) => {
           <TouchableOpacity
             onPress={item.link}
             style={styles.list}
-            key={item.id}
+            key={generateId()}
           >
             <View style={styles.align}>
               <View>{item.icon}</View>

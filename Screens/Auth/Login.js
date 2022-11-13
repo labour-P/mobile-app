@@ -15,6 +15,7 @@ import { loginError } from "./error";
 import { getInitals } from "../../utils/getInitials";
 import Wrapper from "../../components/general/Wrapper";
 import { colors } from "../../constants/color";
+import BodyTextLight from "../../components/general/BodyTextLight";
 
 const Login = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -44,14 +45,20 @@ const Login = ({ navigation }) => {
   return (
     <Wrapper>
       <View style={styles.view}>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 50,
+          }}
+        >
           <Logo />
-          <HeadingText>Welcome Back</HeadingText>
+          <HeadingText>Welcome </HeadingText>
           {/* <BoldText>Benjamin</BoldText> */}
         </View>
         <View>
           <InputDiv
-            placeholder={"Username or Email"}
+            placeholder={"Email"}
             value={details.email}
             name="email"
             onChangeText={(email) =>
@@ -84,9 +91,9 @@ const Login = ({ navigation }) => {
               marginTop: 10,
             }}
           >
-            <BodyTextBold style={{ opacity: 0.8 }}>
+            <BodyTextLight style={{ opacity: 0.8 }}>
               Forgot Password?
-            </BodyTextBold>
+            </BodyTextLight>
             <LinkText
               onPress={() => navigation.navigate("RecoverPasswordScreen")}
               style={{ color: colors.greenText, paddingLeft: 5 }}
@@ -96,7 +103,9 @@ const Login = ({ navigation }) => {
           </View>
         </View>
         <View style={{ flexDirection: "row" }}>
-          <BodyTextBold style={{ opacity: 0.8 }}>First time here?</BodyTextBold>
+          <BodyTextLight style={{ opacity: 0.8 }}>
+            First time here?
+          </BodyTextLight>
           <LinkText
             onPress={() => navigation.navigate("SignupScreen")}
             style={{ color: colors.greenText, paddingLeft: 5 }}

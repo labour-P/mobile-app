@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "labor-p",
-    "slug": "labor-p",
+    "name": "Labour P",
+    "slug": "Labour-P",
     "version": "1.0.0",
+      "scheme": "myapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -27,14 +28,17 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
+          
       },
-      "package": "com.labourp.laborp"
+      "package": "com.labourp.laborp",
+        "versionCode": 2
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
+
     "plugins": [
       [
         "expo-image-picker",

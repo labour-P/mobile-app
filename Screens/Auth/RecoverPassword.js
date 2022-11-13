@@ -8,8 +8,10 @@ import HeadingText from "../../components/general/HeadingText";
 import Logo from "../../components/images/Logo";
 import { phoneError } from "./error";
 import { useDispatch } from "react-redux";
-import { forgotPassword } from "../../redux/actions/auth";
+import { forgotPassword, SET_OTP } from "../../redux/actions/auth";
 import Wrapper from "../../components/general/Wrapper";
+import configs from "../../config/config";
+import ErrorDiv from "../../utils/ErrorDiv";
 
 const RecoverPassword = ({ navigation }) => {
   const [phone, setPhone] = useState("");
@@ -24,8 +26,24 @@ const RecoverPassword = ({ navigation }) => {
     if (res !== true) {
       setLoading(true);
       try {
-        await dispatch(forgotPassword(phone));
-        navigation.navigate("ResetPasswordScreen");
+        const response = await fetch(
+          `${configs.BASE_URL}/api/auth/forgotpassword`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ phone: `+234${phone.slice(1)}` }),
+          }
+        );
+
+        const res = await response.json();
+        console.log(res);
+        dispatch({ type: SET_OTP, payload: res });
+        setError((errors) => ({ ...errors, res: "" }));
+        navigation.navigate("ResetPasswordScreen", {
+          phone: `+234${phone.slice(1)}`,
+        });
       } catch (error) {
         setError((errors) => ({ ...errors, res: error.message }));
       }
@@ -35,6 +53,7 @@ const RecoverPassword = ({ navigation }) => {
 
   return (
     <Wrapper>
+      {error.res && <ErrorDiv error={error} setError={setError} />}
       <View style={styles.view}>
         <Logo />
         <View
@@ -51,12 +70,12 @@ const RecoverPassword = ({ navigation }) => {
               marginTop: 20,
             }}
           >
-            We'll send you a one time otp to confirm it's you.
+            We'll send you a One Time Password to confirm it's you.
           </BodyTextLight>
         </View>
         <View>
           <InputDiv
-            placeholder={"Phone Number"}
+            placeholder={"09061235678"}
             value={phone}
             name={"phone"}
             onChangeText={setPhone}

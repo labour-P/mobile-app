@@ -12,6 +12,12 @@ import ViewImages from "../Screens/Post/ViewImages";
 import Chat from "../Screens/Chat";
 import EditProfile from "../Screens/EditProfile";
 import ViewPost from "../Screens/Post/ViewPost";
+import AdminPost from "../Screens/Post/AdminPost";
+import ViewAdminPost from "../Screens/Post/ViewAdminPost";
+import Support from "../Screens/Support";
+import Contribute from "../Screens/Contribute";
+import SupportSuccess from "../Screens/SupportSuccess";
+import AdvertiseHere from "../Screens/Advertise";
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +59,24 @@ export function MainStack() {
       </Stack.Screen>
       <Stack.Screen name="ViewPostScreen">
         {(props) => <ViewPost {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="AdminPostScreen">
+        {(props) => <AdminPost {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="ViewAdminPostScreen">
+        {(props) => <ViewAdminPost {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="SupportScreen">
+        {(props) => <Support {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="ContributeScreen">
+        {(props) => <Contribute {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="SupportSuccessScreen">
+        {(props) => <SupportSuccess {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="AdvertiseScreen">
+        {(props) => <AdvertiseHere {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

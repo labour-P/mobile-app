@@ -4,10 +4,10 @@ import {
   StyleSheet,
   Text,
   Keyboard,
-  TouchableWithoutFeedback,
+  Image,
   Dimensions,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import InputDiv from "../../components/forms/InputDiv";
 import OtpInput from "../../components/forms/OtpInput";
 import BodyTextBold from "../../components/general/BodyTextBold";
@@ -18,16 +18,18 @@ import HeadingText from "../../components/general/HeadingText";
 import LinkText from "../../components/general/LinkText";
 import Wrapper from "../../components/general/Wrapper";
 import { colors } from "../../constants/color";
+import { verifyEmailAndPhone } from "../../redux/actions/auth";
 import OtpSvg from "../../svg/OtpSvg";
 import { errorOtp } from "./error";
 
 const Otp = ({ navigation }) => {
   const [otp, setOtp] = useState("");
-  const MAX_LENGTH = 6;
+  const MAX_LENGTH = 7;
   const [otpReady, setOtpReady] = useState(false);
   const [error, setError] = useState({});
 
-  const { token } = useSelector((state) => state.auth);
+  const { token, phone, email } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     const res = errorOtp(otp, token, setError);
@@ -35,6 +37,14 @@ const Otp = ({ navigation }) => {
     if (!res) {
       setError((errors) => ({ ...errors, res: "" }));
       navigation.navigate("StateScreen");
+    }
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      await dispatch(verifyEmailAndPhone({ email, phone }));
+    } catch (error) {
+      setError((errors) => ({ ...errors, res: error.message }));
     }
   };
 
@@ -49,7 +59,11 @@ const Otp = ({ navigation }) => {
             marginTop: 20,
           }}
         >
-          <OtpSvg />
+          <Image
+            style={{ width: 150, height: 120 }}
+            source={require("./../../assets/img/datti-signup.png")}
+            resizeMode="contain"
+          />
         </View>
         <View
           style={{
@@ -64,11 +78,12 @@ const Otp = ({ navigation }) => {
               textAlign: "center",
               paddingHorizontal: 35,
               marginTop: 20,
-              opacity: 0.8,
+              opacity: 0.6,
+              fontSize: 14,
             }}
           >
             we just sent a one time password to your mobile number
-            <Text style={{ color: colors.greenText }}> *****91123</Text>
+            <Text style={{ color: colors.greenText }}> {phone}</Text>
           </BodyTextLight>
         </View>
         <View style={styles.otpDiv}>
@@ -78,13 +93,12 @@ const Otp = ({ navigation }) => {
             maxLength={MAX_LENGTH}
             setOtpReady={setOtpReady}
             error={error.otp}
-            // placeholder="012345"
           />
         </View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <BodyTextBold style={{ opacity: 0.7 }}>
-            didn't receive any text?
-          </BodyTextBold>
+          <BodyTextLight style={{ opacity: 0.6 }}>
+            didn't receive any SMS?
+          </BodyTextLight>
           <LinkText
             style={{
               color: colors.greenText,
@@ -92,8 +106,9 @@ const Otp = ({ navigation }) => {
               marginTop: 10,
               fontSize: 15,
             }}
+            onPress={handleResendOtp}
           >
-            resend OTP
+            Resend OTP
           </LinkText>
         </View>
 
@@ -118,7 +133,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     height: Dimensions.get("window").height,
-    paddingVertical: 10,
+    paddingVertical: 30,
   },
   otpDiv: {
     flexDirection: "row",

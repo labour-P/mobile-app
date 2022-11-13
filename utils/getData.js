@@ -1,6 +1,6 @@
 import configs from "../config/config";
 
-export const getData = async (url, data) => {
+export const getData = async (url) => {
   const res = await fetch(`${configs.BASE_URL}/api${url}`);
 
   const response = await res.json();

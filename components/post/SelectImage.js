@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { colors } from "../../constants/color";
 
-const SelectImage = ({ setPost, images }) => {
+const SelectImage = ({ setPost, setMax }) => {
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -17,10 +17,22 @@ const SelectImage = ({ setPost, images }) => {
     });
 
     if (!result.cancelled) {
-      setPost((post) => ({
-        ...post,
-        images: result.uri ? [result] : result.selected,
-      }));
+      if (result.selected.length > 2) {
+        setMax(true);
+        // console.log(result.selected);
+        setPost((post) => ({
+          ...post,
+          images: result.uri
+            ? [result.selected[0], result.selected[1]]
+            : [result.selected[0], result.selected[1]],
+        }));
+      } else {
+        setPost((post) => ({
+          ...post,
+          images: result.uri ? [result] : result.selected,
+        }));
+        setMax(false);
+      }
     }
   };
 

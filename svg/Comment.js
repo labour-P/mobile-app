@@ -4,8 +4,8 @@ import Svg, { Path } from "react-native-svg";
 export default function Comment(props) {
   return (
     <Svg
-      width="60"
-      height="60"
+      width="25"
+      height="25"
       viewBox="0 0 88 80"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ export default function Comment(props) {
       />
       <Path
         d="M68.7105 0H4.28947C2.19661 0 0.5 1.6966 0.5 3.78947V49.2632C0.5 51.356 2.19661 53.0526 4.28947 53.0526H15.6579V70.1053C15.6579 71.1517 16.5062 72 17.5526 72C17.9478 72.001 18.3331 71.877 18.6535 71.6457L44.6853 53.0526H68.7105C70.8034 53.0526 72.5 51.356 72.5 49.2632V3.78947C72.5 1.6966 70.8034 0 68.7105 0Z"
-        fill="#E7F4E8"
+        fill="#fff"
       />
     </Svg>
   );

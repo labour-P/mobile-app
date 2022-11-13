@@ -10,19 +10,22 @@ const ErrorDiv = ({ error, setError }) => {
     <View>
       <View
         style={{
-          backgroundColor: "red",
+          backgroundColor: colors.error,
           flexDirection: "row",
-          paddingHorizontal: 5,
+          paddingHorizontal: 10,
           alignItems: "center",
+          justifyContent: "space-between",
+          paddingVertical: 10,
+          // height: 50,
         }}
       >
-        <BodyTextLight style={{ color: colors.white }}>
+        <BodyTextLight style={{ color: colors.white, fontSize: 14 }}>
           {error.res}
         </BodyTextLight>
         <LinkText
           onPress={() => setError((errors) => ({ ...errors, res: "" }))}
         >
-          <Ionicons name="close" size={30} color={colors.black} />
+          <Ionicons name="close" size={23} color={colors.white} />
         </LinkText>
       </View>
     </View>

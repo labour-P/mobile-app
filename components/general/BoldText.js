@@ -12,7 +12,7 @@ export default BoldText;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "bold",
     color: colors.darkText,
   },

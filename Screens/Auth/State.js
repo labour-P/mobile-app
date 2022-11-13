@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, Image } from "react-native";
 import SelectInput from "../../components/forms/SelectInput";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import ForwardForever from "../../components/general/ForwardForever";
@@ -10,6 +10,7 @@ import { stateError } from "./error";
 import { nigeria } from "./../../model/state";
 import AddressSvg from "../../svg/AddressSvg";
 import Wrapper from "../../components/general/Wrapper";
+import BodyTextLight from "../../components/general/BodyTextLight";
 
 const State = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -112,7 +113,11 @@ const State = ({ navigation }) => {
     <Wrapper>
       <View style={styles.view}>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <AddressSvg />
+          <Image
+            style={{ width: 150, height: 120 }}
+            source={require("./../../assets/img/obidatti-signup.png")}
+            resizeMode="contain"
+          />
         </View>
         <View
           style={{
@@ -120,7 +125,18 @@ const State = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <HeadingText>State and L.G.A area where you reside</HeadingText>
+          <HeadingText>Let’s get to know you better</HeadingText>
+          <BodyTextLight
+            style={{
+              marginTop: 10,
+              textAlign: "center",
+              paddingHorizontal: 20,
+              fontSize: 14,
+              opacity: 0.6,
+            }}
+          >
+            Please provide the following details; just click and select.
+          </BodyTextLight>
         </View>
         <View>
           <SelectInput

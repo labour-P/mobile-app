@@ -7,6 +7,7 @@ import {
   SET_USER_NAME,
   SET_AGE,
   SET_PROFILE_IMAGE,
+  SET_OTP,
 } from "./../actions/auth";
 
 const initialState = {
@@ -26,11 +27,11 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isAuth: true,
       };
     case SET_PROFILE_IMAGE:
       return {
         ...state,
-        isAuth: true,
         profileImage: action.payload,
       };
     case LOGOUT: {
@@ -72,6 +73,11 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         age: action.payload.age,
+      };
+    case SET_OTP:
+      return {
+        ...state,
+        otp: action.payload.token,
       };
     default:
       return state;

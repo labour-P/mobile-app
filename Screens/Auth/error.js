@@ -183,16 +183,28 @@ export const phoneError = (phone, setError) => {
   }
 };
 
-export const resetError = ({ otp, password, confirmPassword }, setError) => {
-  if (!otp.trim()) {
-    setError((error) => ({ ...error, otp: "Please select a username" }));
+export const resetError = (
+  { password, confirmPassword },
+  otp,
+  setError,
+  otpPin
+) => {
+  if (!otp) {
+    setError((error) => ({ ...error, otp: "OTP must be six characters" }));
     return true;
   } else {
     setError((error) => ({ ...error, otp: "" }));
   }
 
-  if (otp.trim().length < 6 || otp.trim().length > 6) {
-    setError((error) => ({ ...error, otp: "OTP is 6 characters" }));
+  if (otp.length < 6 || otp.length > 6) {
+    setError((error) => ({ ...error, otp: "OTP must be 6 characters" }));
+    return true;
+  } else {
+    setError((error) => ({ ...error, otp: "" }));
+  }
+
+  if (otp !== otpPin.otp) {
+    setError((error) => ({ ...error, otp: "OTP is invalid or expired" }));
     return true;
   } else {
     setError((error) => ({ ...error, otp: "" }));
@@ -228,14 +240,14 @@ export const errorOtp = (otp, token, setError) => {
     setError((errors) => ({ ...errors, otp: "" }));
   }
 
-  if (otp.trim().length < 6 || otp.trim().length > 6) {
-    setError((errors) => ({ ...errors, otp: "OTP must be 6 digits!" }));
+  if (otp.trim().length < 7 || otp.trim().length > 7) {
+    setError((errors) => ({ ...errors, otp: "OTP must be 7 digits!" }));
     return true;
   } else {
     setError((errors) => ({ ...errors, otp: "" }));
   }
 
-  if (otp.trim() !== token) {
+  if (otp != token) {
     setError((errors) => ({ ...errors, res: "OTP expired or is incorrect!" }));
     return true;
   } else {

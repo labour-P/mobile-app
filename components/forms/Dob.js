@@ -10,6 +10,7 @@ import BodyTextBold from "../general/BodyTextBold";
 import { Feather } from "@expo/vector-icons";
 import ErrorText from "../general/ErrorText";
 import { colors } from "../../constants/color";
+import { Calendar } from "react-native-calendario";
 
 const Dob = (props) => {
   const [inputStyle, setInputStyle] = useState({});
@@ -61,13 +62,61 @@ const Dob = (props) => {
           importantForAutofill={"no"}
           {...props}
         />
-
+        {/* <Calendar
+          onChange={(range) => console.log(range)}
+          minDate={new Date(2018, 3, 20)}
+          startDate={new Date(1800, 3, 30)}
+          endDate={new Date(2018, 4, 5)}
+          theme={{
+            activeDayColor: {},
+            monthTitleTextStyle: {
+              color: "#6d95da",
+              fontWeight: "300",
+              fontSize: 16,
+            },
+            emptyMonthContainerStyle: {},
+            emptyMonthTextStyle: {
+              fontWeight: "200",
+            },
+            weekColumnsContainerStyle: {},
+            weekColumnStyle: {
+              paddingVertical: 10,
+            },
+            weekColumnTextStyle: {
+              color: "#b6c1cd",
+              fontSize: 13,
+            },
+            nonTouchableDayContainerStyle: {},
+            nonTouchableDayTextStyle: {},
+            startDateContainerStyle: {},
+            endDateContainerStyle: {},
+            dayContainerStyle: {},
+            dayTextStyle: {
+              color: "#2d4150",
+              fontWeight: "200",
+              fontSize: 15,
+            },
+            dayOutOfRangeContainerStyle: {},
+            dayOutOfRangeTextStyle: {},
+            todayContainerStyle: {},
+            todayTextStyle: {
+              color: "#6d95da",
+            },
+            activeDayContainerStyle: {
+              backgroundColor: "#6d95da",
+            },
+            activeDayTextStyle: {
+              color: "white",
+            },
+            nonTouchableLastMonthDayTextStyle: {},
+          }}
+        /> */}
         <View onPress={handleVisble}>
           <Feather
             style={styles.icon}
             name="calendar"
             size={24}
-            color={colors.black}
+            color={colors.primaryGray}
           />
         </View>
       </View>

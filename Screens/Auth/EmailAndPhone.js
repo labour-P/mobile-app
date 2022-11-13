@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, SafeAreaView, StyleSheet, Dimensions } from "react-native";
+import { View, Image, StyleSheet, Dimensions } from "react-native";
 import InputDiv from "../../components/forms/InputDiv";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import ForwardForever from "../../components/general/ForwardForever";
@@ -43,7 +43,11 @@ const EmailAndPhone = ({ navigation }) => {
     <Wrapper>
       <View style={styles.view}>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <EmailSvg />
+          <Image
+            style={{ width: 150, height: 120 }}
+            source={require("./../../assets/img/peter-signup.png")}
+            resizeMode="contain"
+          />
         </View>
         <View
           style={{
@@ -51,11 +55,17 @@ const EmailAndPhone = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <HeadingText style={{ textAlign: "center" }}>
+          <HeadingText style={{ textAlign: "center", paddingHorizontal: 20 }}>
             Please enter your email and phone number
           </HeadingText>
           <BodyTextLight
-            style={{ textAlign: "center", opacity: 0.8, paddingHorizontal: 10 }}
+            style={{
+              textAlign: "center",
+              opacity: 0.6,
+              paddingHorizontal: 10,
+              fontSize: 15,
+              paddingTop: 5,
+            }}
           >
             Please an active phone number would be great, so we can send you
             valuable notifications when neccessary
@@ -105,6 +115,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     height: Dimensions.get("window").height,
-    paddingVertical: 20,
+    paddingVertical: 30,
   },
 });

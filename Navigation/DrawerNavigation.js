@@ -40,7 +40,7 @@ export default function DrawerTab() {
         headerTitle: () => (
           <Image
             style={styles.logoImg}
-            source={require("../assets/img/oval.png")}
+            source={require("../assets/img/logo-main.png")}
           />
         ),
       })}
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
 
   logoImg: {
     width: 50,
+    height: 50,
     resizeMode: "cover",
     marginLeft: Dimensions.get("window").width / 1.5,
-    marginTop: 20,
   },
 });

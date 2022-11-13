@@ -14,6 +14,7 @@ import RecoverPassword from "../Screens/Auth/RecoverPassword";
 import ResetPassword from "../Screens/Auth/ResetPassword";
 import ProfileImage from "../Screens/Auth/ProfileImage";
 import Onboarding from "../Screens/Onboarding";
+import ViewPost from "../Screens/Post/ViewPost";
 
 const Stack = createNativeStackNavigator();
 
@@ -69,14 +70,14 @@ export function AuthStack(props) {
         <Stack.Screen name="ProfileImageScreen">
           {(props) => <ProfileImage {...props} />}
         </Stack.Screen>
+        <Stack.Screen name="ViewPostScreen">
+          {(props) => <ViewPost {...props} />}
+        </Stack.Screen>
       </Stack.Navigator>
     );
   } else {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="OnboardigScreen">
-          {(props) => <Onboarding {...props} />}
-        </Stack.Screen>
         <Stack.Screen name="LoginScreen">
           {(props) => <Login {...props} />}
         </Stack.Screen>
@@ -106,6 +107,9 @@ export function AuthStack(props) {
         </Stack.Screen>
         <Stack.Screen name="ProfileImageScreen">
           {(props) => <ProfileImage {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="ViewPostScreen">
+          {(props) => <ViewPost {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     );

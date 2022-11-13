@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, SafeAreaView, StyleSheet } from "react-native";
+import { View, Dimensions, StyleSheet, Image } from "react-native";
 import InputDiv from "../../components/forms/InputDiv";
 import BodyTextLight from "../../components/general/BodyTextLight";
 import ButtonDiv from "../../components/general/ButtonDiv";
@@ -9,9 +9,9 @@ import LinkText from "../../components/general/LinkText";
 import Logo from "../../components/images/Logo";
 import { nameError } from "./error";
 import { setName } from "../../redux/actions/auth";
-
 import { useDispatch } from "react-redux";
 import { colors } from "../../constants/color";
+import Wrapper from "../../components/general/Wrapper";
 
 const Signup = ({ navigation }) => {
   const [userName, setUserName] = useState({
@@ -32,18 +32,22 @@ const Signup = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <Wrapper>
       <View style={styles.view}>
+        <Image
+          source={require("./../../assets/img/labour-signup.png")}
+          resizeMode="contain"
+          style={{ width: 150, height: 120 }}
+        />
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
-            marginTop: 80,
           }}
         >
-          <HeadingText>Let's get you started</HeadingText>
+          <HeadingText>Let's get started</HeadingText>
         </View>
-        <View style={{ marginTop: 30 }}>
+        <View>
           <InputDiv
             placeholder={"First Name"}
             value={userName.fisrt_name || ""}
@@ -54,33 +58,27 @@ const Signup = ({ navigation }) => {
             keyboardType="default"
             name={"fisrt_name"}
           />
-          <InputDiv
-            // title={"Last Name"}
-            placeholder={"Last Name"}
-            value={userName.last_name || ""}
-            name={"last_name"}
-            onChangeText={(last_name) =>
-              setUserName((details) => ({ ...details, last_name }))
-            }
-            error={error.last_name}
-            keyboardType="default"
-          />
+          <View style={{ marginTop: 10 }}>
+            <InputDiv
+              // title={"Last Name"}
+              placeholder={"Last Name"}
+              value={userName.last_name || ""}
+              name={"last_name"}
+              onChangeText={(last_name) =>
+                setUserName((details) => ({ ...details, last_name }))
+              }
+              error={error.last_name}
+              keyboardType="default"
+            />
+          </View>
         </View>
+
         <View>
-          <LinkText
-            onPress={() => navigation.navigate("SignupScreen")}
-            style={{ color: colors.greenText, paddingLeft: 5 }}
-          >
-            I agree to the terms of service provacy policy
-          </LinkText>
-        </View>
-        ÍAS
-        <View>
-          Í<ButtonDiv onPress={handlSubmit}>Submit</ButtonDiv>
+          <ButtonDiv onPress={handlSubmit}>Submit</ButtonDiv>
         </View>
         <ForwardForever />
       </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 
@@ -92,6 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     paddingBottom: 10,
-    marginTop: 60,
+    height: Dimensions.get("window").height,
+    paddingTop: 50,
   },
 });

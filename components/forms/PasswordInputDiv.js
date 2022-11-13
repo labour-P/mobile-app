@@ -76,13 +76,15 @@ const PasswordInputDiv = (props) => {
             <Entypo
               style={styles.icon}
               name="eye-with-line"
-              size={24}
-              color={colors.primaryBg}
+              size={20}
+              color={colors.primaryGray}
             />
           </TouchableOpacity>
         )}
       </View>
-      {props.error && <ErrorText>{props.error}</ErrorText>}
+      {props.error && (
+        <ErrorText style={{ paddingLeft: 20 }}>{props.error}</ErrorText>
+      )}
     </View>
   );
 };

@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Text,
+  Dimensions,
 } from "react-native";
 import { AntDesign, Fontisto, MaterialIcons } from "@expo/vector-icons";
 
@@ -32,10 +33,11 @@ const CreatePost = ({ navigation }) => {
   const [error, setError] = useState({});
   const [postDataIsValid, setPostDataIsValid] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [max, setMax] = useState(false);
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-
+  console.log(user);
   const userInitials = getInitials(user.name);
 
   const removeImage = (uri) => {
@@ -53,19 +55,35 @@ const CreatePost = ({ navigation }) => {
   }, [post.text]);
 
   const handleSubmit = async () => {
-    // const imageData = formData(post.images);
+    let imgArr = [];
+
+    if (post.images.length === 0) {
+      imgArr = [];
+    } else {
+      post.images.map((img) => {
+        let formData = new FormData();
+        formData.append("file", {
+          name: `image.jpeg`,
+          type: "image/jpeg",
+          uri: img.uri,
+        });
+
+        imgArr.push(formData);
+      });
+    }
+
     const data = {
       userid: user._id,
       username: user.userName,
       name: user.name,
-      profileurl: "",
+      profileUrl: user.profileUrl,
       thread: generateRandomString(),
-      location: user.ward,
+      location: `${user.state} - ${user.lga}`,
       date: new Date(),
       time: currentTime,
       message: post.text,
-      imageurl1: "",
-      videourl: "",
+      imageurl: imgArr,
+      videourl: [],
     };
     setLoading(true);
     try {
@@ -76,6 +94,14 @@ const CreatePost = ({ navigation }) => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMax(false);
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [max]);
 
   return (
     <SafeAreaView style={styles.view}>
@@ -94,10 +120,9 @@ const CreatePost = ({ navigation }) => {
       </View>
       <View style={styles.mainDiv}>
         <View style={styles.imgDiv}>
-          <ProfileInitials
-            userInitials={userInitials}
-            size={60}
-            fontSize={22}
+          <Image
+            source={{ uri: user.profileUrl }}
+            style={{ width: 60, height: 60, borderRadius: 100 }}
           />
         </View>
         <View style={styles.form}>
@@ -107,7 +132,7 @@ const CreatePost = ({ navigation }) => {
               name="text"
               error={error.text}
               onChangeText={(text) => setPost((posts) => ({ ...posts, text }))}
-              placeholder="What's happening...?"
+              placeholder="What's happening around you...?"
               multiline={true}
               numberOfLines={8}
             />
@@ -163,7 +188,14 @@ const CreatePost = ({ navigation }) => {
       </View>
       <View style={styles.optionsDiv}>
         <View style={styles.inlineOptions}>
-          <SelectImage images={post.images} setPost={setPost} />
+          {max === true && (
+            <View style={styles.copyDiv}>
+              <BodyTextLight style={styles.copyText}>
+                Cannot upload more than 2 Images
+              </BodyTextLight>
+            </View>
+          )}
+          <SelectImage setMax={setMax} setPost={setPost} />
         </View>
         <View style={styles.inlineOptionsTwo}>
           <Fontisto name="world-o" size={20} color={colors.greenText} />
@@ -184,11 +216,10 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     backgroundColor: colors.white,
-    marginTop: 30,
     justifyContent: "space-between",
   },
   topDiv: {
-    marginTop: 25,
+    marginTop: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 15,
@@ -251,5 +282,21 @@ const styles = StyleSheet.create({
     borderLeftColor: colors.greenText,
     borderLeftWidth: 1,
     paddingLeft: 20,
+  },
+  copyDiv: {
+    width: Dimensions.get("window").width - 30,
+    backgroundColor: "#000",
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    position: "absolute",
+    bottom: 100,
+    paddingVertical: 10,
+    borderRadius: 30,
+    opacity: 0.7,
+  },
+  copyText: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 10,
   },
 });

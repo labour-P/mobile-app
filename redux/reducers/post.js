@@ -1,4 +1,9 @@
-import { GET_POST, GET_COMMENTS, GET_LIKES } from "./../actions/post";
+import {
+  GET_POST,
+  GET_COMMENTS,
+  GET_LIKES,
+  ADD_COMMENTS,
+} from "./../actions/post";
 
 const initialState = {};
 
@@ -13,6 +18,11 @@ export const postReducer = (state = initialState, action) => {
       return {
         ...state,
         comments: action.payload,
+      };
+    case ADD_COMMENTS:
+      return {
+        ...state,
+        comments: [...comments, ...action.payload],
       };
     case GET_LIKES:
       return {

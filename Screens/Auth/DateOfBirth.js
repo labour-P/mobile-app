@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import {
   View,
-  SafeAreaView,
+  Image,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import ForwardForever from "../../components/general/ForwardForever";
@@ -20,6 +21,7 @@ import { setAge } from "../../redux/actions/auth";
 import CalendarSvg from "../../svg/CalendarSvg";
 import Wrapper from "../../components/general/Wrapper";
 import { colors } from "../../constants/color";
+import BodyTextLight from "../../components/general/BodyTextLight";
 
 const DateOfBirth = ({ navigation }) => {
   const [calendar, setCalendar] = useState("");
@@ -64,21 +66,41 @@ const DateOfBirth = ({ navigation }) => {
 
     if (res !== true) {
       dispatch(setAge(date.formattedDate));
-      navigation.navigate("UsernameAndPasswordScreen");
+      navigation.navigate("ProfileImageScreen");
     }
   };
 
   return (
     <Wrapper>
       <View style={styles.view}>
-        <CalendarSvg />
+        <View>
+          <Image
+            style={{ width: 150, height: 120 }}
+            source={require("./../../assets/img/obidatti-signup.png")}
+            resizeMode="contain"
+          />
+          <BodyTextLight
+            style={{
+              fontSize: 14,
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              marginTop: 5,
+            }}
+          >
+            OBIDATTI 2023
+          </BodyTextLight>
+        </View>
+
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <HeadingText>Please lets have your date of birth</HeadingText>
+          <HeadingText style={{ marginTop: -30 }}>
+            Please choose your date of birth
+          </HeadingText>
           <View>
             {calendar && (
               <View style={styles.calendarDiv}>
@@ -124,7 +146,19 @@ const DateOfBirth = ({ navigation }) => {
         </View>
 
         <View>
-          <ButtonDiv onPress={handleSubmit}>Next</ButtonDiv>
+          <BodyTextLight
+            style={{
+              paddingHorizontal: 30,
+              marginBottom: 20,
+              textAlign: "center",
+              fontSize: 14,
+              opacity: 0.6,
+            }}
+          >
+            By clicking Submit you Agree to give your Vote to the Labour Party
+            and your Support to the OBIDATTI Presidency come 2023.
+          </BodyTextLight>
+          <ButtonDiv onPress={handleSubmit}>Submit</ButtonDiv>
         </View>
 
         <ForwardForever />

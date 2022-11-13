@@ -1,66 +1,71 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import BodyTextLight from "../general/BodyTextLight";
-import BoldText from "../general/BoldText";
-import { useSelector, useDispatch } from "react-redux";
-import ActionDiv from "./ActionDiv";
-import CommentDiv from "./CommentDiv";
-import ProfileInitials from "../general/ProfileInitials";
+import { useSelector } from "react-redux";
 import { getInitials } from "../../utils/getInitials";
-import { truncate } from "../../utils/truncateText";
-import LinkText from "../general/LinkText";
-import { timeSince } from "../../utils/timeAgo";
-import { currentDate } from "../../utils/getDate";
-import configs from "../../config/config";
-import { getLikes } from "../../redux/actions/post";
-import PostContainer from "./PostContainer";
 import { colors } from "../../constants/color";
+import { generateId } from "../../utils/generateRandomString";
+import ProfileInitials from "../general/ProfileInitials";
+import BoldText from "../general/BoldText";
+import { timeSince } from "../../utils/timeAgo";
+import { truncate } from "../../utils/truncateText";
+import ImageDiv from "./ImageDiv";
 
-const PostDiv = ({ navigation, openComment }) => {
-  const { posts } = useSelector((state) => state.post);
-  const { user } = useSelector((state) => state.auth);
-
-  const [trends, setTrends] = useState([]);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    let newTrends = posts?.sort((a, b) => b.date.localeCompare(a.date));
-
-    setTrends(newTrends);
-  }, [posts]);
-  // const [divId, setDivId] = useState(null);
+const PostDiv = ({ post, viewPost }) => {
+  const userInitials = getInitials(post?.name);
 
   return (
-    <View>
-      {trends?.length ? (
-        trends?.map((post, index) => {
-          const userInitials = getInitials(post.name);
-          return (
-            <TouchableOpacity
-              style={{
-                borderBottomColor: colors.primaryGray,
-                borderBottomWidth: 1,
-                flexDirection: "column",
-                paddingTop: 15,
-              }}
-              key={index}
-              onPress={() => navigation.navigate("ViewPostScreen", { post })}
-            >
-              <PostContainer
-                post={post}
-                navigation={navigation}
-                openComment={openComment}
-                viewPost={false}
-              />
-            </TouchableOpacity>
-          );
-        })
-      ) : (
-        <View>
-          <BodyTextLight>no post yet!</BodyTextLight>
+    <View
+      style={{
+        flexDirection: "row",
+        paddingVertical: 10,
+      }}
+    >
+      <View style={styles.profileImgDiv}>
+        <Image
+          source={{ uri: post.profileUrl }}
+          style={{ width: 50, height: 50, borderRadius: 100 }}
+        />
+      </View>
+      <View style={{ flex: 0.9, marginLeft: 20, marginTop: 5 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingRight: 10,
+          }}
+        >
+          <BoldText style={{ textTransform: "capitalize", fontSize: 14 }}>
+            {post?.name}
+          </BoldText>
+
+          <BodyTextLight style={{ fontSize: 12, opacity: 0.5 }}>
+            {timeSince(post?.date)}
+          </BodyTextLight>
         </View>
-      )}
+        <View style={{ paddingVertical: 10, justifyContent: "center" }}>
+          <BodyTextLight
+            style={{ fontSize: 17, opacity: 0.8, paddingHorizontal: 5 }}
+          >
+            {!viewPost ? truncate(post.message, 184) : post.message}
+          </BodyTextLight>
+        </View>
+        {post?.imageurl[0] !== null ? (
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              width: "100%",
+              overflow: "hidden",
+            }}
+          >
+            <ImageDiv img={post.imageurl} />
+          </View>
+        ) : (
+          <View></View>
+        )}
+      </View>
     </View>
   );
 };
@@ -69,7 +74,7 @@ export default PostDiv;
 
 const styles = StyleSheet.create({
   profileImgDiv: {
-    flex: 0.2,
+    flex: 0.1,
     paddingLeft: 5,
   },
   profileImg: { width: "100%", height: "100%" },

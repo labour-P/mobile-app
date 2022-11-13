@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
-import { makeComment } from "../../redux/actions/post";
 import PostButton from "../general/PostButton";
 import CommentInput from "./CommentInput";
 import { useSelector, useDispatch } from "react-redux";
 import { currentTime } from "../../utils/getDate";
 import { colors } from "../../constants/color";
+import { getComment, makeComment } from "../../Screens/Post/getdata";
+import { GET_COMMENTS } from "../../redux/actions/post";
 
-const CreateComment = ({ post }) => {
+const CreateComment = ({ madeComment, setMadeComment, thread }) => {
   const [postDataIsValid, setPostDataIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
   const [comment, setComment] = useState("");
@@ -29,16 +30,20 @@ const CreateComment = ({ post }) => {
       userid: user._id,
       username: user.userName,
       name: user.name,
-      profileurl: "",
-      thread: post.thread,
-      location: user.ward,
+      profileUrl: user.profileUrl,
+      thread,
+      location: `${user.state} - ${user.lga}`,
       date: new Date(),
       time: currentTime,
+      message: comment,
     };
+
     setLoading(true);
     try {
-      await dispatch(makeComment(data));
+      const res = await makeComment(data);
       setComment("");
+      setMadeComment(!madeComment);
+      // dispatch({ type: GET_COMMENTS, payload: res });
     } catch (error) {
       setError((errors) => ({ ...errors, res: error.message }));
     }
@@ -58,17 +63,21 @@ const CreateComment = ({ post }) => {
         marginTop: 10,
       }}
     >
-      <CommentInput
-        value={comment}
-        onChangeText={setComment}
-        placeholder={"post your reply"}
-        error={error.comment}
-      />
-      <PostButton
-        loading={loading}
-        handleSubmit={handleComment}
-        postDataIsValid={postDataIsValid}
-      />
+      <View style={{ flex: 0.75 }}>
+        <CommentInput
+          value={comment}
+          onChangeText={setComment}
+          placeholder={"post your reply"}
+          error={error.comment}
+        />
+      </View>
+      <View style={{ flex: 0.25 }}>
+        <PostButton
+          loading={loading}
+          handleSubmit={handleComment}
+          postDataIsValid={postDataIsValid}
+        />
+      </View>
     </View>
   );
 };

@@ -3,8 +3,8 @@ const formData = (image) => {
 
   let fileType = image.uri.split(".")[1];
 
-  data.append("image", {
-    name: `image/${fileType}`,
+  data.append("file", {
+    name: `file/${fileType}`,
     type: `${image.type}/${fileType}`,
     uri: image.uri,
   });

@@ -4,107 +4,111 @@ import { getData, postData } from "../../utils/getData";
 export const GET_POST = "GET_POST";
 export const GET_LIKES = "GET_LIKES";
 export const GET_COMMENTS = "GET_COMMENTS";
-
-export const getPost = () => {
-  return async (dispatch) => {
-    try {
-      const res = await getData("/routes/posts");
-
-      console.log(res);
-
-      dispatch({ type: "GET_POST", payload: res });
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-};
+export const ADD_COMMENTS = "ADD_COMMENTS";
 
 export const createPost = (data) => {
   return async (dispatch) => {
-    try {
-      const res = await postData("/routes/posts", data);
-    } catch (error) {
-      throw new Error(error);
+    console.log(data.imageurl);
+    if (data.imageurl !== []) {
+      try {
+        const promises = data.imageurl.map((img) => {
+          return fetch(`${configs.BASE_URL}/upload`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            body: img,
+          }).then((res) => res.json());
+        });
+
+        const imgData = Promise.all(promises);
+
+        const responseImg = [];
+
+        imgData
+          .then(async (response) => {
+            response.map((img) => responseImg.push(img.url));
+
+            const newData = {
+              ...data,
+              imageurl: responseImg,
+            };
+            try {
+              const res = await postData("/routes/posts", newData);
+
+              console.log(res);
+            } catch (error) {
+              console.log(error);
+              throw new Error(error);
+            }
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+        const msg = "File must not exceed 1mb";
+        throw new Error(msg);
+      }
+    } else {
+      try {
+        const res = await postData("/routes/posts", data);
+
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
+      }
     }
   };
 };
 
-export const likePost = (data) => {
+export const getPosts = (currentpage) => {
   return async (dispatch) => {
     try {
-      const res = await postData("/routes/rate", data);
+      const response = await fetch(
+        `${configs.BASE_URL}/api/routes/viewposts/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ page: currentpage }),
+        }
+      );
+      const postRes = await response.json();
 
-      console.log(res);
+      const threads = postRes.data.map((res) => res.thread);
+
+      const promises = threads.map((thread) => {
+        return fetch(`${configs.BASE_URL}/api/routes/count`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ thread }),
+        }).then((res) => res.json());
+      });
+
+      const countData = Promise.all(promises);
+
+      countData
+        .then((resp) => {
+          let postArr = [];
+          postRes.data.map((post) => {
+            resp.map((res) => {
+              if (res.thread === post.thread) {
+                const response = { ...res, ...post };
+
+                postArr.push(response);
+                dispatch({ type: GET_POST, payload: postArr });
+              }
+            });
+          });
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
     } catch (error) {
       throw new Error(error);
     }
   };
-};
-
-export const getLikes = async (data) => {
-  try {
-    const res = await fetch(`${configs.BASE_URL}/api/routes/viewrate`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        thread: data,
-      }),
-    });
-
-    if (!res.ok) {
-      const err = await res.json();
-
-      console.log(err);
-    }
-
-    const response = await res.json();
-
-    console.log(`likes - ${response}`);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const makeComment = (data) => {
-  return async (dispatch) => {
-    try {
-      console.log(data);
-      const res = await postData("/routes/comments", data);
-
-      console.log(res);
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-};
-
-export const getComments = async (data) => {
-  try {
-    const res = await fetch(`${configs.BASE_URL}/api/routes/viewcomments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        thread: data,
-      }),
-    });
-
-    if (!res.ok) {
-      const err = await res.json();
-
-      console.log(err);
-    }
-
-    const response = await res.json();
-
-    console.log(`comments - ${response}`);
-
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
 };

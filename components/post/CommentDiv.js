@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  ActivityIndicator,
+  ScrollView,
+  Image,
+} from "react-native";
 import CommentInput from "../forms/CommentInput";
 import PostButton from "../general/PostButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,32 +24,15 @@ import BoldText from "../general/BoldText";
 import { timeSince } from "../../utils/timeAgo";
 import CreateComment from "../forms/CreateComment";
 import { colors } from "../../constants/color";
+import { generateId } from "../../utils/generateRandomString";
 
-const CommentDiv = ({ post, loadComments }) => {
+const CommentDiv = ({ loadComments, loadingState }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const [postComments, setPostComments] = useState([]);
 
   const { user } = useSelector((state) => state.auth);
   const { comments } = useSelector((state) => state.post);
-  const dispatch = useDispatch();
-
-  const fetchComments = async () => {
-    setLoading(true);
-
-    dispatch({ type: GET_COMMENTS, payload: [] });
-    try {
-      const res = await getComments(post.thread);
-      dispatch({ type: GET_COMMENTS, payload: res });
-    } catch (error) {
-      console.log(error);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchComments();
-  }, []);
 
   useEffect(() => {
     const sortComments = comments?.sort((a, b) => b.date.localeCompare(a.date));
@@ -50,6 +41,18 @@ const CommentDiv = ({ post, loadComments }) => {
   }, [comments]);
 
   const userInitials = getInitials(user.name);
+
+  if (loadComments) {
+    return (
+      <View style={{ marginVertical: 10 }}>
+        <BodyTextLight
+          style={{ opacity: 0.5, textAlign: "center", fontSize: 13 }}
+        >
+          <ActivityIndicator size="small" color={colors.greenText} />
+        </BodyTextLight>
+      </View>
+    );
+  }
 
   return (
     <View
@@ -62,94 +65,63 @@ const CommentDiv = ({ post, loadComments }) => {
       }}
     >
       <View>
-        {loadComments && (
+        {postComments?.length > 0 ? (
+          postComments.map((comment) => (
+            <View
+              style={{
+                flexDirection: "row",
+                paddingVertical: 10,
+              }}
+              key={generateId()}
+            >
+              <View style={styles.profileImgDiv}>
+                <Image
+                  source={{ uri: comment.profileUrl }}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 100,
+                  }}
+                />
+              </View>
+              <View style={{ flex: 0.9, marginLeft: 20, marginTop: 5 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingRight: 10,
+                  }}
+                >
+                  <BoldText
+                    style={{ textTransform: "capitalize", fontSize: 14 }}
+                  >
+                    {comment?.name}
+                  </BoldText>
+
+                  <BodyTextLight style={{ fontSize: 12, opacity: 0.5 }}>
+                    {timeSince(comment?.date)}
+                  </BodyTextLight>
+                </View>
+                <View style={{ paddingVertical: 10, justifyContent: "center" }}>
+                  <BodyTextLight
+                    style={{ fontSize: 17, opacity: 0.8, paddingHorizontal: 5 }}
+                  >
+                    {comment.message}
+                  </BodyTextLight>
+                </View>
+              </View>
+            </View>
+          ))
+        ) : (
           <View style={{ marginVertical: 10 }}>
             <BodyTextLight
               style={{ opacity: 0.5, textAlign: "center", fontSize: 13 }}
             >
-              Loading comments...
+              No comments yet...
             </BodyTextLight>
           </View>
         )}
-        <View>
-          {postComments?.length > 0 ? (
-            postComments.map((comment) => (
-              <View
-                key={comment._id}
-                style={{
-                  paddingBottom: 10,
-                  paddingLeft: 10,
-                  paddingVertical: 5,
-                }}
-              >
-                <View
-                  style={{
-                    justifyContent: "space-between",
-                    marginTop: 10,
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      flex: 0.1,
-                      marginTop: 15,
-                    }}
-                  >
-                    <ProfileInitials
-                      userInitials={userInitials}
-                      size={40}
-                      fontSize={13}
-                    />
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 0.9,
-                      justifyContent: "space-between",
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    <BoldText
-                      style={{
-                        textTransform: "capitalize",
-                        fontSize: 14,
-                        marginLeft: 10,
-                      }}
-                    >
-                      {comment.name}
-                    </BoldText>
-                    <BodyTextLight style={{ fontSize: 12, opacity: 0.5 }}>
-                      {timeSince(comment.date)}
-                    </BodyTextLight>
-                  </View>
-                </View>
-
-                <View
-                  style={{
-                    paddingVertical: 5,
-                    justifyContent: "center",
-                    paddingLeft: 55,
-                    opacity: 0.8,
-                  }}
-                >
-                  <BodyTextLight>{comment.message}</BodyTextLight>
-                </View>
-              </View>
-            ))
-          ) : (
-            <View style={{ marginVertical: 10 }}>
-              <BodyTextLight
-                style={{ opacity: 0.5, textAlign: "center", fontSize: 13 }}
-              >
-                No comments yet...
-              </BodyTextLight>
-            </View>
-          )}
-        </View>
-        {/* <CreateComment thread={thread} /> */}
       </View>
     </View>
   );
@@ -157,4 +129,8 @@ const CommentDiv = ({ post, loadComments }) => {
 
 export default CommentDiv;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  profileImgDiv: {
+    paddingLeft: 5,
+  },
+});

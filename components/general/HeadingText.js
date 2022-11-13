@@ -14,7 +14,7 @@ export default HeadingText;
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 20,
+    fontSize: 16,
     fontFamily: "bold",
     color: colors.darkText,
   },

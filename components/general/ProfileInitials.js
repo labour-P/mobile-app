@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import BodyTextBold from "./BodyTextBold";
+import { useSelector } from "react-redux";
 
 const ProfileInitials = ({ userInitials, size, fontSize }) => {
   return (

@@ -64,7 +64,7 @@ export default SelectInput;
 const styles = StyleSheet.create({
   input: {
     width: Dimensions.get("window").width - 30,
-    height: 60,
+    height: 49,
     fontSize: 16,
     fontFamily: "normal",
     borderColor: colors.primaryGray,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   err: {
     width: Dimensions.get("window").width - 30,
-    height: 60,
+    height: 49,
     fontSize: 16,
     fontFamily: "normal",
     borderColor: colors.error,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   edit: {
     color: "#fff",
     width: Dimensions.get("window").width - 30,
-    height: 60,
+    height: 49,
     fontSize: 16,
     fontFamily: "normal",
     borderColor: colors.primaryBg,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     marginVertical: 3,
   },
   placeholderStyle: {
-    color: colors.darkText,
+    color: "#8F9098",
     fontFamily: "normal",
     fontSize: 14,
   },

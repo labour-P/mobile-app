@@ -38,17 +38,21 @@ const InputDiv = (props) => {
   }, [props.value, props.error]);
 
   return (
-    <View style={styles.div}>
-      {/* <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold> */}
-      <TextInput
-        style={inputStyle}
-        selectionColor={colors.primaryBg}
-        autoCorrect={false}
-        autoCapitalize="none"
-        importantForAutofill={"no"}
-        {...props}
-      />
-      {props.error && <ErrorText>{props.error}</ErrorText>}
+    <View>
+      <View style={styles.div}>
+        {/* <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold> */}
+        <TextInput
+          style={inputStyle}
+          selectionColor={colors.primaryBg}
+          autoCorrect={false}
+          autoCapitalize="none"
+          importantForAutofill={"no"}
+          {...props}
+        />
+      </View>
+      {props.error && (
+        <ErrorText style={{ paddingLeft: 20 }}>{props.error}</ErrorText>
+      )}
     </View>
   );
 };
@@ -91,5 +95,7 @@ const styles = StyleSheet.create({
   },
   div: {
     marginVertical: 8,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Dimensions, StyleSheet } from "react-native";
+import { View, Dimensions, StyleSheet, Image } from "react-native";
 import InputDiv from "../../components/forms/InputDiv";
 import PasswordInputDiv from "../../components/forms/PasswordInputDiv";
 import ButtonDiv from "../../components/general/ButtonDiv";
@@ -24,8 +24,17 @@ const UsernameAndPassword = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const { name, email, phone, state, ward, lga, polling_unit, age } =
-    useSelector((state) => state.auth);
+  const {
+    name,
+    email,
+    phone,
+    state,
+    ward,
+    lga,
+    polling_unit,
+    age,
+    profileImage,
+  } = useSelector((state) => state.auth);
 
   const checkUsername = async (username) => {
     setDetails((details) => ({ ...details, username }));
@@ -44,16 +53,16 @@ const UsernameAndPassword = ({ navigation }) => {
         pollingUnit: polling_unit,
         age,
         address: "my address",
-        city: "abuja",
+        city: "my city",
         userName: details.username,
         password: details.password,
+        profileUrl: profileImage,
       };
 
       setLoading(true);
       try {
         await dispatch(signup(data));
         setError((errors) => ({ ...errors, res: "" }));
-        navigation.navigate("ProfileImageScreen");
       } catch (error) {
         setError((errors) => ({ ...errors, res: error.message }));
       }
@@ -65,10 +74,16 @@ const UsernameAndPassword = ({ navigation }) => {
     <Wrapper>
       <View style={styles.view}>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <SignupSvg />
+          <Image
+            style={{ width: 150, height: 120 }}
+            source={require("./../../assets/img/labour-signup.png")}
+            resizeMode="contain"
+          />
         </View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <HeadingText>Choose a username and password</HeadingText>
+          <HeadingText style={{ paddingHorizontal: 20, textAlign: "center" }}>
+            Please choose a username & password
+          </HeadingText>
         </View>
         <View>
           <InputDiv
@@ -103,7 +118,14 @@ const UsernameAndPassword = ({ navigation }) => {
           />
         </View>
         <View>
-          <BodyTextLight style={{ paddingHorizontal: 10, opacity: 0.7 }}>
+          <BodyTextLight
+            style={{
+              paddingHorizontal: 30,
+              fontSize: 14,
+              textAlign: "center",
+              opacity: 0.6,
+            }}
+          >
             By clicking Submit you Agree to give your Vote to the Labour Party
             and your Support to the OBIDATTI Presidency come 2023.
           </BodyTextLight>
@@ -127,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "space-between",
-    paddingVertical: 10,
+    paddingVertical: 20,
     height: Dimensions.get("window").height,
   },
 });

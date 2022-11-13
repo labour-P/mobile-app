@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Image, SafeAreaView } from "react-native";
+import { View, StyleSheet, Image, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import HeadingText from "../../components/general/HeadingText";
 import { FontAwesome } from "@expo/vector-icons";
 import LinkText from "../../components/general/LinkText";
 import { useDispatch } from "react-redux";
-import formData from "../../utils/formData";
+// import formData from "../../utils/formData";
 import ButtonDiv from "../../components/general/ButtonDiv";
-import { uploadProfileImg } from "../../redux/actions/auth";
+import { SET_PROFILE_IMAGE, uploadProfileImg } from "../../redux/actions/auth";
 import { colors } from "../../constants/color";
+import Wrapper from "../../components/general/Wrapper";
+import ForwardForever from "../../components/general/ForwardForever";
+import configs from "../../config/config";
 
-const ProfileImage = () => {
+const ProfileImage = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -36,25 +40,53 @@ const ProfileImage = () => {
       return setError("Please select an image");
     }
 
-    const data = formData(image);
+    const data = new FormData();
+
+    data.append("file", {
+      name: `image.jpeg`,
+      type: "image/jpeg",
+      uri: image.uri,
+    });
+
+    console.log(data);
+    setLoading(true);
     try {
-      await dispatch(uploadProfileImg(image));
+      const res = await fetch(`${configs.BASE_URL}/upload`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: data,
+      });
+
+      const response = await res.json();
+      console.log(response);
+      dispatch({ type: SET_PROFILE_IMAGE, payload: response.url });
+      navigation.navigate("UsernameAndPasswordScreen");
     } catch (error) {
-      setError(error.message);
+      console.log(error);
+      const msg = "File must not exceed 5mb.";
+      setError(msg);
     }
+    setLoading(false);
   };
 
   return (
-    <SafeAreaView style={styles.view}>
+    <Wrapper>
       <View style={styles.div}>
+        <Image
+          style={{ width: 150, height: 120 }}
+          source={require("./../../assets/img/obidatti-signup.png")}
+          resizeMode="contain"
+        />
         <HeadingText style={{ textAlign: "center" }}>
-          Choose a profile image
+          Please choose a profile image
         </HeadingText>
         <View style={styles.center}>
           {!image ? (
             <FontAwesome
               name="user-circle-o"
-              size={200}
+              size={150}
               color={colors.primaryGray}
             />
           ) : (
@@ -75,26 +107,27 @@ const ProfileImage = () => {
             </LinkText>
           )}
         </View>
+
+        <View style={{ marginTop: 30 }}>
+          <ButtonDiv loading={loading} error={error} onPress={handleSubmit}>
+            Submit
+          </ButtonDiv>
+        </View>
+        <ForwardForever />
       </View>
-      <View style={{ marginTop: 30 }}>
-        <ButtonDiv error={error} onPress={handleSubmit}>
-          Signup
-        </ButtonDiv>
-      </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 
 export default ProfileImage;
 
 const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
   div: {
-    paddingHorizontal: 20,
-    marginTop: 80,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flex: 1,
+    height: Dimensions.get("window").height,
+    paddingVertical: 20,
   },
   center: {
     justifyContent: "center",

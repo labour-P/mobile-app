@@ -1,3 +1,4 @@
+import configs from "../../config/config";
 import { getData, patchData, postData } from "../../utils/getData";
 
 export const LOGIN = "LOGIN";
@@ -9,6 +10,7 @@ export const VERIFY_EMAIL_AND_PHONE = "VERIFY_EMAIL_AND_PHONE";
 export const VERIFY_USERNAME = "VERIFY_USERNAME";
 export const SIGNUP = "SIGNUP";
 export const SET_PROFILE_IMAGE = "SET_PROFILE_IMAGE";
+export const SET_OTP = "SET_OTP";
 
 export const verifyEmailAndPhone = (data) => {
   return async (dispatch) => {
@@ -104,10 +106,20 @@ export const setProfileImage = () => {
 export const uploadProfileImg = (data) => {
   return async (dispatch) => {
     try {
-      // const res = await patchData("/auth/update", data);
+      const res = await fetch(`${configs.BASE_URL}/upload`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: data,
+      });
 
-      dispatch({ type: SET_PROFILE_IMAGE, payload: data });
+      const response = await res.json();
+
+      console.log(response);
+      dispatch({ type: SET_PROFILE_IMAGE, payload: response });
     } catch (error) {
+      console.log(error);
       throw new Error(error);
     }
   };

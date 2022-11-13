@@ -17,6 +17,7 @@ export default Logo;
 
 const styles = StyleSheet.create({
   img: {
-    width: 120,
+    width: 90,
+    height: 90,
   },
 });

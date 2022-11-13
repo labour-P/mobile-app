@@ -6,12 +6,14 @@ import HeadingText from "../components/general/HeadingText";
 import { LinearGradient } from "expo-linear-gradient";
 
 const OnboardingScreen = ({ navigation }) => {
+  const onboardingRef = useRef(null);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       onboardingRef.current.goToPage(1, true);
     }, 4000);
     return () => timer;
-  }, []);
+  }, [onboardingRef]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,9 +23,7 @@ const OnboardingScreen = ({ navigation }) => {
     }, 8000);
 
     return () => timer;
-  }, []);
-
-  const onboardingRef = useRef(null);
+  }, [onboardingRef]);
 
   return (
     <Onboarding
