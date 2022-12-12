@@ -42,7 +42,7 @@ const SelectInput = (props) => {
     <View style={styles.div}>
       <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold>
       <Dropdown
-        style={inputStyle}
+        style={{ ...inputStyle, ...props.style }}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}

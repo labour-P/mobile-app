@@ -17,7 +17,7 @@ const SelectImage = ({ setPost, setMax }) => {
     });
 
     if (!result.cancelled) {
-      if (result.selected.length > 2) {
+      if (result.selected?.length > 2) {
         setMax(true);
         // console.log(result.selected);
         setPost((post) => ({

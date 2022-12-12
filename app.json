@@ -3,7 +3,10 @@
     "name": "Labour P",
     "slug": "Labour-P",
     "version": "1.0.0",
-      "scheme": "myapp",
+    "runtimeVersion": {
+      "policy": "nativeVersion"
+    },
+    "scheme": "myapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -12,13 +15,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-      "androidStatusBar": {
+    "androidStatusBar": {
       "backgroundColor": "#000",
       "barStyle": "light-content",
       "translucent": false
     },
     "updates": {
-      "fallbackToCacheTimeout": 1000
+      "fallbackToCacheTimeout": 1000,
+      "url": "https://u.expo.dev/95b8aec4-706c-45eb-a000-99b301c83346"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -30,15 +34,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
-          
       },
       "package": "com.labourp.laborp",
-        "versionCode": 2
+      "versionCode": 11,
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/icon.png"
     },
-
     "plugins": [
       [
         "expo-image-picker",
@@ -46,6 +51,11 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "95b8aec4-706c-45eb-a000-99b301c83346"
+      }
+    }
   }
 }

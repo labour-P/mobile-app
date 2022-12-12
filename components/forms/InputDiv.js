@@ -42,7 +42,7 @@ const InputDiv = (props) => {
       <View style={styles.div}>
         {/* <BodyTextBold style={{ marginBottom: 5 }}>{props.title}</BodyTextBold> */}
         <TextInput
-          style={inputStyle}
+          style={{ ...inputStyle, ...props.style }}
           selectionColor={colors.primaryBg}
           autoCorrect={false}
           autoCapitalize="none"

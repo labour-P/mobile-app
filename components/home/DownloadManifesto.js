@@ -15,7 +15,7 @@ const DownloadManifesto = () => {
           style={styles.alignDiv}
           onPress={() =>
             Linking.openURL(
-              "https://drive.google.com/file/d/1oiA0XH6iIDhBQ8VYrCo2IGpfuTD0igiX/view?usp=sharing"
+              "https://drive.google.com/file/d/1akG7k3uRZ8atKCG3rAKaSkN8DTHk8G_q/view?usp=sharing"
             )
           }
         >

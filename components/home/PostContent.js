@@ -40,36 +40,6 @@ const PostContent = ({ navigation }) => {
       <View style={styles.chatDiv}>
         <Card style={styles.card}>
           <TouchableOpacity
-            style={{ height: "100%" }}
-            onPress={() => navigation.navigate("TrendsScreen")}
-          >
-            <Image
-              source={require("./../../assets/img/imgOne.png")}
-              style={styles.img}
-              resizeMode="cover"
-            />
-            <View style={styles.overlay}></View>
-            <View
-              style={{
-                padding: 10,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "flex-end",
-                alignSelf: "flex-end",
-                height: "100%",
-              }}
-            >
-              <BodyTextLight style={styles.overlayText}>
-                Chat with fellow obidients
-              </BodyTextLight>
-              <View style={{ flex: 0.2 }}>
-                <Comment />
-              </View>
-            </View>
-          </TouchableOpacity>
-        </Card>
-        <Card style={styles.card}>
-          <TouchableOpacity
             onPress={() => navigation.navigate("AdminPostScreen")}
             style={{ height: "100%" }}
           >
@@ -109,6 +79,36 @@ const PostContent = ({ navigation }) => {
                 <View style={{ flex: 0.2 }}>
                   <Speaker />
                 </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </Card>
+        <Card style={styles.card}>
+          <TouchableOpacity
+            style={{ height: "100%" }}
+            onPress={() => navigation.navigate("NotificationsScreen")}
+          >
+            <Image
+              source={require("./../../assets/img/imgOne.png")}
+              style={styles.img}
+              resizeMode="cover"
+            />
+            <View style={styles.overlay}></View>
+            <View
+              style={{
+                padding: 10,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-end",
+                alignSelf: "flex-end",
+                height: "100%",
+              }}
+            >
+              <BodyTextLight style={styles.overlayText}>
+                Chat with fellow obidients
+              </BodyTextLight>
+              <View style={{ flex: 0.2 }}>
+                <Comment />
               </View>
             </View>
           </TouchableOpacity>

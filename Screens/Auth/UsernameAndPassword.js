@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Dimensions, StyleSheet, Image } from "react-native";
+import { View, Dimensions, StyleSheet, Image, Linking } from "react-native";
 import InputDiv from "../../components/forms/InputDiv";
 import PasswordInputDiv from "../../components/forms/PasswordInputDiv";
 import ButtonDiv from "../../components/general/ButtonDiv";
@@ -13,6 +13,7 @@ import { signUpError } from "./error";
 import SignupSvg from "../../svg/SignupSvg";
 import Wrapper from "../../components/general/Wrapper";
 import BodyTextLight from "../../components/general/BodyTextLight";
+import { colors } from "../../constants/color";
 
 const UsernameAndPassword = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -117,19 +118,7 @@ const UsernameAndPassword = ({ navigation }) => {
             keyboardType="password"
           />
         </View>
-        <View>
-          <BodyTextLight
-            style={{
-              paddingHorizontal: 30,
-              fontSize: 14,
-              textAlign: "center",
-              opacity: 0.6,
-            }}
-          >
-            By clicking Submit you Agree to give your Vote to the Labour Party
-            and your Support to the OBIDATTI Presidency come 2023.
-          </BodyTextLight>
-        </View>
+
         <View style={{ marginTop: 20 }}>
           <ButtonDiv error={error.res} loading={loading} onPress={handleSignup}>
             Submit
@@ -151,5 +140,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 20,
     height: Dimensions.get("window").height,
+  },
+  align: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    paddingHorizontal: 40,
   },
 });

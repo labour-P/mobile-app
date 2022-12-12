@@ -21,7 +21,7 @@ export const verifyEmailAndPhone = (data) => {
         payload: {
           token: res.token,
           email: data.email,
-          phone: `+234${data.phone.slice(1)}`,
+          phone: data.phone,
         },
       });
     } catch (error) {

@@ -18,6 +18,8 @@ import { currentTime } from "../utils/getDate";
 import VideoDiv from "../components/general/VideoDiv";
 import * as Linking from "expo-linking";
 import DownloadManifesto from "../components/home/DownloadManifesto";
+import { Ionicons } from "@expo/vector-icons";
+import BodyTextLight from "../components/general/BodyTextLight";
 
 const Home = ({ navigation }) => {
   return (
@@ -38,6 +40,24 @@ const Home = ({ navigation }) => {
       </ScrollView>
 
       {/* Floating button */}
+      <View style={styles.floatDiv}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("NotificationsScreen")}
+          style={styles.float}
+        >
+          <Ionicons name="chatbubble-outline" size={30} color={colors.white} />
+          <BodyTextLight
+            style={{
+              fontSize: 10,
+              paddingHorizonta: 20,
+              width: "70%",
+              textAlign: "center",
+            }}
+          >
+            Chat by State, LGA or Ward
+          </BodyTextLight>
+        </TouchableOpacity>
+      </View>
       <FloatingBtn navigation={navigation} />
     </SafeAreaView>
   );
@@ -56,5 +76,25 @@ const styles = StyleSheet.create({
     position: "relative",
     backgroundColor: colors.white,
     marginBottom: 50,
+  },
+  float: {
+    position: "absolute",
+    bottom: 30,
+    // left: 0,
+    right: 30,
+    zIndex: 3,
+    backgroundColor: colors.primaryBg,
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  floatDiv: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: colors.primaryBg,
   },
 });

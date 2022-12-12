@@ -15,6 +15,7 @@ import ResetPassword from "../Screens/Auth/ResetPassword";
 import ProfileImage from "../Screens/Auth/ProfileImage";
 import Onboarding from "../Screens/Onboarding";
 import ViewPost from "../Screens/Post/ViewPost";
+import Welcome from "../Screens/Auth/Welcome";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,9 @@ export function AuthStack(props) {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="OnboardigScreen">
           {(props) => <Onboarding {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="WelcomeScreen">
+          {(props) => <Welcome {...props} />}
         </Stack.Screen>
         <Stack.Screen name="LoginScreen">
           {(props) => <Login {...props} />}

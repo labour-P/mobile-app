@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import BodyTextLight from "../general/BodyTextLight";
 import { useSelector } from "react-redux";
@@ -10,17 +10,36 @@ import BoldText from "../general/BoldText";
 import { timeSince } from "../../utils/timeAgo";
 import { truncate } from "../../utils/truncateText";
 import ImageDiv from "./ImageDiv";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Modal from "../general/Modal";
 
 const PostDiv = ({ post, viewPost }) => {
   const userInitials = getInitials(post?.name);
+  const postTime = timeSince(post?.date);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModal = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <View
       style={{
         flexDirection: "row",
         paddingVertical: 10,
+        zIndex: -10,
       }}
     >
+      {isModalOpen && (
+        <Modal
+          userid={post.userid}
+          postid={post._id}
+          username={post.name}
+          modalVisible={isModalOpen}
+          setModalVisible={setIsModalOpen}
+        />
+      )}
       <View style={styles.profileImgDiv}>
         <Image
           source={{ uri: post.profileUrl }}
@@ -36,13 +55,32 @@ const PostDiv = ({ post, viewPost }) => {
             paddingRight: 10,
           }}
         >
-          <BoldText style={{ textTransform: "capitalize", fontSize: 14 }}>
-            {post?.name}
-          </BoldText>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingRight: 10,
+            }}
+          >
+            <BoldText style={{ textTransform: "capitalize", fontSize: 13 }}>
+              {post?.name}
+            </BoldText>
 
-          <BodyTextLight style={{ fontSize: 12, opacity: 0.5 }}>
-            {timeSince(post?.date)}
-          </BodyTextLight>
+            <BodyTextLight
+              style={{ fontSize: 13, opacity: 0.5, paddingLeft: 5 }}
+            >
+              {postTime}
+            </BodyTextLight>
+          </View>
+          <TouchableOpacity onPress={handleModal} paddingRight={20}>
+            <MaterialCommunityIcons
+              name="dots-vertical"
+              size={22}
+              color="black"
+              p={20}
+            />
+          </TouchableOpacity>
         </View>
         <View style={{ paddingVertical: 10, justifyContent: "center" }}>
           <BodyTextLight

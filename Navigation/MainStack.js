@@ -18,6 +18,9 @@ import Support from "../Screens/Support";
 import Contribute from "../Screens/Contribute";
 import SupportSuccess from "../Screens/SupportSuccess";
 import AdvertiseHere from "../Screens/Advertise";
+import ReportPost from "../Screens/ReportPost";
+import ReportUser from "../Screens/ReportUser";
+import BlockUser from "../Screens/BlockUserScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -77,6 +80,15 @@ export function MainStack() {
       </Stack.Screen>
       <Stack.Screen name="AdvertiseScreen">
         {(props) => <AdvertiseHere {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="ReportPostScreen">
+        {(props) => <ReportPost {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="ReportUserScreen">
+        {(props) => <ReportUser {...props} />}
+      </Stack.Screen>
+      <Stack.Screen name="BlockUserScreen">
+        {(props) => <BlockUser {...props} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

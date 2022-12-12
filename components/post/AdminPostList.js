@@ -16,6 +16,7 @@ const AdminPostList = ({ navigation, post }) => {
         width: "100%",
         borderBottomColor: colors.primaryGray,
         borderBottomWidth: 1,
+        paddingHorizontal: 10,
       }}
       onPress={() => navigation.navigate("ViewAdminPostScreen", { post: post })}
     >
@@ -25,7 +26,7 @@ const AdminPostList = ({ navigation, post }) => {
           style={{ width: 50, height: 40, borderRadius: 100 }}
         />
       </View>
-      <View style={{ flex: 0.85 }}>
+      <View style={{ flex: 0.85, marginLeft: 5 }}>
         <View
           style={{
             flexDirection: "row",
@@ -33,7 +34,9 @@ const AdminPostList = ({ navigation, post }) => {
             justifyContent: "space-between",
           }}
         >
-          <BoldText>{truncate(post.heading, 20)}</BoldText>
+          <BoldText style={{ fontSize: 14 }}>
+            {truncate(post.heading, 12)}
+          </BoldText>
           <BodyTextLight style={{ fontSize: 10, opacity: 0.8 }}>
             {post.date}
           </BodyTextLight>

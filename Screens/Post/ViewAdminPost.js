@@ -11,12 +11,16 @@ import HeadingText from "../../components/general/HeadingText";
 import Wrapper from "../../components/general/Wrapper";
 import { colors } from "../../constants/color";
 import { AntDesign } from "@expo/vector-icons";
+import Header from "../../components/general/Header";
+import { useNavigation } from "@react-navigation/native";
 
 const ViewAdminPost = ({ route }) => {
   const { post } = route.params;
+  const navigation = useNavigation();
 
   return (
     <Wrapper>
+      <Header text={"View Post"} navigation={navigation} />
       <View>
         <View style={styles.imgDiv}>
           <View style={styles.overlay}></View>
