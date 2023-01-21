@@ -1,10 +1,25 @@
 import isEmail from "validator/lib/isEmail";
 
-export const nameError = ({ fisrt_name, last_name }, checked, setError) => {
+export const nameError = (
+  { fisrt_name, last_name },
+  checked,
+  checkedTwo,
+  setError
+) => {
   if (!checked) {
     setError((error) => ({
       ...error,
       res: "You have not agreed to our privacy policy",
+    }));
+    return true;
+  } else {
+    setError((error) => ({ ...error, res: "" }));
+  }
+
+  if (!checkedTwo) {
+    setError((error) => ({
+      ...error,
+      res: "You have not agreed to our user generated content policy",
     }));
     return true;
   } else {
@@ -53,20 +68,7 @@ export const emailAndPhoneError = ({ phone, email }, setError) => {
     setError((error) => ({ ...error, phone: "" }));
   }
 
-  let reWhiteSpace = new RegExp("\\s+");
-
-  // Check for white space
-  if (reWhiteSpace.test(email)) {
-    setError((error) => ({
-      ...error,
-      email: "please check your email for whitespace",
-    }));
-    return true;
-  } else {
-    setError((error) => ({ ...error, email: "" }));
-  }
-
-  if (!isEmail(email)) {
+  if (!isEmail(email.trim())) {
     setError((error) => ({
       ...error,
       email: "please input a valid email",
@@ -78,19 +80,6 @@ export const emailAndPhoneError = ({ phone, email }, setError) => {
 };
 
 export const loginError = ({ email, password }, setError) => {
-  let reWhiteSpace = new RegExp("\\s+");
-
-  // Check for white space
-  if (reWhiteSpace.test(email)) {
-    setError((error) => ({
-      ...error,
-      email: "please check your email for whitespace",
-    }));
-    return true;
-  } else {
-    setError((error) => ({ ...error, email: "" }));
-  }
-
   if (!isEmail(email.trim())) {
     setError((error) => ({
       ...error,

@@ -21,11 +21,12 @@ const Signup = ({ navigation }) => {
   });
   const [error, setError] = useState({});
   const [checked, setChecked] = useState(false);
+  const [checkedTwo, setCheckedTwo] = useState(false);
 
   const dispatch = useDispatch();
 
   const handlSubmit = async () => {
-    const res = nameError(userName, checked, setError);
+    const res = nameError(userName, checked, checkedTwo, setError);
 
     if (res !== true) {
       dispatch(setName(userName));
@@ -63,7 +64,41 @@ const Signup = ({ navigation }) => {
               style={{ color: colors.primaryBg }}
               onPress={() => Linking.openURL("http://labourp.ng/privacy.html")}
             >
-              Privacy Policy
+              Privacy Policy{" "}
+            </LinkText>
+            <BodyTextLight
+              style={{
+                fontSize: 14,
+                opacity: 0.6,
+              }}
+            >
+              of Labour-P
+            </BodyTextLight>
+          </View>
+        </View>
+        <View style={{ ...styles.align, marginTop: -20 }}>
+          <Checkbox
+            status={checkedTwo ? "checked" : "unchecked"}
+            onPress={() => {
+              setCheckedTwo(!checkedTwo);
+            }}
+          />
+          <View
+            style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 3 }}
+          >
+            <BodyTextLight
+              style={{
+                fontSize: 14,
+                opacity: 0.6,
+              }}
+            >
+              I have read and agreed to the{" "}
+            </BodyTextLight>
+            <LinkText
+              style={{ color: colors.primaryBg }}
+              onPress={() => Linking.openURL("http://labourp.ng/ugc.html")}
+            >
+              User Generated Content Policy{" "}
             </LinkText>
             <BodyTextLight
               style={{
@@ -79,7 +114,7 @@ const Signup = ({ navigation }) => {
           style={{
             justifyContent: "center",
             alignItems: "center",
-            marginTop: -40,
+            marginTop: 0,
           }}
         >
           <HeadingText>Let's get started</HeadingText>

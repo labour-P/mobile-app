@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  Linking,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import BodyTextBold from "../components/general/BodyTextBold";
 import BodyTextLight from "../components/general/BodyTextLight";
 import Header from "../components/general/Header";
@@ -16,6 +24,7 @@ import ErrorDiv from "../utils/ErrorDiv";
 import { generateId } from "../utils/generateRandomString";
 import { postData } from "../utils/getData";
 import Logo from "../components/images/Logo";
+import LinkText from "../components/general/LinkText";
 
 const ReportUser = ({ navigation, route }) => {
   const { userid, username } = route.params;
@@ -36,6 +45,18 @@ const ReportUser = ({ navigation, route }) => {
     setLoading(true);
     try {
       const res = await postData("/admin/report", data);
+      Alert.alert(
+        "Request sent",
+        " Your indiscretion reports are important to us, we will look into your report and take necessary actions",
+        [
+          // {
+          //   text: "Cancel",
+          //   onPress: () => console.log("Cancel Pressed"),
+          //   style: "cancel",
+          // },
+          { text: "OK", onPress: () => console.log("OK Pressed") },
+        ]
+      );
     } catch (error) {
       console.log(error.message);
     }
@@ -45,35 +66,84 @@ const ReportUser = ({ navigation, route }) => {
   return (
     <Wrapper>
       {error.res && <ErrorDiv error={error} setError={setError} />}
-      <Header navigation={navigation} text={"Report User"} />
+      <Header navigation={navigation} text={`Report @${username}`} />
 
       <View
         style={{
           justifyContent: "center",
-          alignItems: "center",
           height: Dimensions.get("window").height - 250,
         }}
       >
-        <Logo />
-        <View style={{ paddingHorizontal: 20 }}>
-          <BodyTextLight>You are about to report - {username}</BodyTextLight>
-          <BodyTextLight
-            style={{ paddingVertical: 10, opacity: 0.6, textAlign: "center" }}
-          >
-            Your indiscretion reports are important to us.{" "}
-          </BodyTextLight>
-          <BodyTextLight
-            style={{ paddingVertical: 10, opacity: 0.6, textAlign: "center" }}
-          >
-            Tap submit, to send us an indiscretion report on any post.
-          </BodyTextLight>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          {loading && (
+            <ActivityIndicator
+              style={{ marginVertical: 20 }}
+              size={"small"}
+              color={colors.primaryBg}
+            />
+          )}
+          <Logo />
         </View>
+        <View style={{}}>
+          <BodyTextLight
+            style={{
+              textAlign: "left",
+              marginTop: 30,
+              fontSize: 18,
+              paddingHorizontal: 20,
+            }}
+          >
+            Help us undertand the issue. whats the problem with this user
+          </BodyTextLight>
 
-        <View style={{ marginTop: 30 }}>
-          <ButtonDiv loading={loading} onPress={handleSubmit} error={error.res}>
-            Submit
-          </ButtonDiv>
+          <View style={{ marginTop: 30 }}>
+            <TouchableOpacity
+              style={{
+                paddingVertical: 20,
+                borderBottomColor: "#ccc",
+                borderBottomWidth: 1,
+              }}
+              onPress={handleSubmit}
+            >
+              <BodyTextLight style={{ fontSize: 17, paddingHorizontal: 20 }}>
+                is violating our users policy agreement
+              </BodyTextLight>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                paddingVertical: 20,
+                borderBottomColor: "#ccc",
+                borderBottomWidth: 1,
+              }}
+              onPress={handleSubmit}
+            >
+              <BodyTextLight style={{ fontSize: 17, paddingHorizontal: 20 }}>
+                Is abusive or insighting
+              </BodyTextLight>
+            </TouchableOpacity>
+          </View>
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: 20,
+            marginTop: 20,
+          }}
+        >
+          <LinkText
+            onPress={() => Linking.openURL("http://labourp.ng/ugc.html")}
+            style={{ color: colors.primaryBg, fontSize: 14 }}
+          >
+            Learn more
+          </LinkText>
+          <BodyTextLight
+            style={{ fontSize: 14, alignItems: "center", paddingLeft: 5 }}
+          >
+            about reporting violations of our rules.
+          </BodyTextLight>
+        </View>
+        <View style={{ marginTop: 80 }}></View>
       </View>
     </Wrapper>
   );

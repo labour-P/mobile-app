@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Dimensions, Alert, ActivityIndicator } from "react-native";
 import BodyTextBold from "../components/general/BodyTextBold";
 import BodyTextLight from "../components/general/BodyTextLight";
 import Header from "../components/general/Header";
@@ -36,6 +36,18 @@ const BlockUser = ({ navigation, route }) => {
     setLoading(true);
     try {
       const res = await postData("/admin/report", data);
+       Alert.alert(
+         "Request sent",
+         " Your indiscretion reports are important to us, we will look into your reports and take necessary actions",
+         [
+           // {
+           //   text: "Cancel",
+           //   onPress: () => console.log("Cancel Pressed"),
+           //   style: "cancel",
+           // },
+           { text: "OK", onPress: () => console.log("OK Pressed") },
+         ]
+       );
     } catch (error) {
       console.log(error.message);
     }
@@ -68,7 +80,6 @@ const BlockUser = ({ navigation, route }) => {
             Tap submit, to send us an indiscretion report on any post.
           </BodyTextLight>
         </View>
-
         <View style={{ marginTop: 30 }}>
           <ButtonDiv loading={loading} onPress={handleSubmit} error={error.res}>
             Submit

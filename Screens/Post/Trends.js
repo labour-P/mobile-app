@@ -19,6 +19,7 @@ import { generateId } from "../../utils/generateRandomString";
 import ActionDiv from "../../components/post/ActionDiv";
 import configs from "../../config/config";
 import LinkText from "../../components/general/LinkText";
+import BodyTextLight from "../../components/general/BodyTextLight";
 
 const Trends = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -135,7 +136,8 @@ const Trends = ({ navigation }) => {
       >
         {trends?.length === 0 || trends === undefined ? (
           <View style={styles.center}>
-            <ActivityIndicator size="large" color={colors.greenText} />
+            {/* <ActivityIndicator size="large" color={colors.greenText} /> */}
+            <BodyTextLight>No post yet</BodyTextLight>
           </View>
         ) : (
           trends?.map((trend) => (
@@ -158,27 +160,30 @@ const Trends = ({ navigation }) => {
             </TouchableOpacity>
           ))
         )}
-        {currentpage === "1" ? (
-          <LinkText onPress={handleNextPage} style={styles.seeMore}>
-            Next Page
-          </LinkText>
-        ) : (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <LinkText onPress={handlPrevPage} style={styles.next}>
-              Previous Page
-            </LinkText>
-
-            <LinkText onPress={handleNextPage} style={styles.next}>
+        <View>
+          {currentpage === "1" && trends?.length !== 0 && (
+            <LinkText onPress={handleNextPage} style={styles.seeMore}>
               Next Page
             </LinkText>
-          </View>
-        )}
+          )}
+          {currentpage !== "1" && trends?.length !== 0 && (
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <LinkText onPress={handlPrevPage} style={styles.next}>
+                Previous Page
+              </LinkText>
+
+              <LinkText onPress={handleNextPage} style={styles.next}>
+                Next Page
+              </LinkText>
+            </View>
+          )}
+        </View>
       </ScrollView>
       {/* Floating button */}
       <FloatingBtn navigation={navigation} />

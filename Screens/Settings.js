@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: "row",
     paddingVertical: 20,
-    borderTopColor: colors.primaryGray,
-    borderTopWidth: 1,
+    borderBottomColor: colors.primaryGray,
+    borderBottomWidth: 1,
     paddingHorizontal: 15,
     justifyContent: "space-between",
   },

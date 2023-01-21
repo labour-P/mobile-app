@@ -12,9 +12,39 @@ import { Ionicons, Entypo, Feather } from "@expo/vector-icons";
 import BodyTextLight from "./BodyTextLight";
 import { colors } from "../../constants/color";
 import { useNavigation } from "@react-navigation/native";
+import { postData } from "../../utils/getData";
 
 const App = (props) => {
   const navigation = useNavigation();
+
+  const handleSubmit = async () => {
+    console.log("woring");
+    const data = {
+      eventid: props.postid,
+      eventType: "block",
+    };
+
+    try {
+      const res = await postData("/admin/report", data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleBlock = () => {
+    Alert.alert(
+      `Block @${props.username}`,
+      `@${props.username} will no longer be able to see post from you, and you will not see post @${props.username} also`,
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: handleSubmit },
+      ]
+    );
+  };
 
   return (
     <View style={styles.centeredView}>
@@ -40,7 +70,7 @@ const App = (props) => {
                 onPress={() => {
                   navigation.navigate("ReportPostScreen", {
                     postid: props.postid,
-                    username: user.username,
+                    username: props.username,
                   });
                   props.setModalVisible(false);
                 }}
@@ -62,7 +92,7 @@ const App = (props) => {
                 onPress={() => {
                   navigation.navigate("ReportUserScreen", {
                     userid: props.userid,
-                    username: user.username,
+                    username: props.username,
                   });
                   props.setModalVisible(false);
                 }}
@@ -79,15 +109,7 @@ const App = (props) => {
                   </BodyTextLight>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("BlockUserScreen", {
-                    userid: props.userid,
-                    username: user.username,
-                  });
-                  props.setModalVisible(false);
-                }}
-              >
+              <TouchableOpacity onPress={handleBlock}>
                 <View style={{ flexDirection: "row", paddingVertical: 15 }}>
                   <Entypo
                     name="block"

@@ -16,6 +16,8 @@ import { generateId } from "../../utils/generateRandomString";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminPost } from "../../redux/actions/admin";
 import Header from "../../components/general/Header";
+import BodyTextBold from "../../components/general/BodyTextBold";
+import BodyTextLight from "../../components/general/BodyTextLight";
 
 const AdminPost = ({ navigation }) => {
   const [error, setError] = useState({});
@@ -38,24 +40,24 @@ const AdminPost = ({ navigation }) => {
   }, []);
 
   const adminposts = [
-    {
-      id: 1,
-      type: "news",
-      heading: "Precise Onward Unemployemnt Register",
-      message:
-        '"The dissatisfied individuals in any society are usually those who feel their potential is underutilized or outrightly unrecognized. One time tested way to engage and recognize the potentials of every individual in any society is employment. I agree completely with one of my scholar friends who says "employment is one of the most equitable means of income distribution." We must take the gathering of data for the unemployed and the underemployed in any society very seriously. -Peter Obi.',
-      img: require("./../../assets/img/ObiDatti.png"),
-      date: "12th oct 2022",
-    },
-    {
-      id: 2,
-      type: "Rally",
-      heading: "Nassarawa Rally",
-      message:
-        '"The dissatisfied individuals in any society are usually those who feel their potential is underutilized or outrightly unrecognized. One time tested way to engage and recognize the potentials of every individual in any society is employment. I agree completely with one of my scholar friends who says "employment is one of the most equitable means of income distribution." We must take the gathering of data for the unemployed and the underemployed in any society very seriously. -Peter Obi.',
-      img: require("./../../assets/img/ObiDatti.png"),
-      date: "12th oct 2022",
-    },
+    // {
+    //   id: 1,
+    //   type: "news",
+    //   heading: "Precise Onward Unemployemnt Register",
+    //   message:
+    //     '"The dissatisfied individuals in any society are usually those who feel their potential is underutilized or outrightly unrecognized. One time tested way to engage and recognize the potentials of every individual in any society is employment. I agree completely with one of my scholar friends who says "employment is one of the most equitable means of income distribution." We must take the gathering of data for the unemployed and the underemployed in any society very seriously. -Peter Obi.',
+    //   img: require("./../../assets/img/ObiDatti.png"),
+    //   date: "12th oct 2022",
+    // },
+    // {
+    //   id: 2,
+    //   type: "Rally",
+    //   heading: "Nassarawa Rally",
+    //   message:
+    //     '"The dissatisfied individuals in any society are usually those who feel their potential is underutilized or outrightly unrecognized. One time tested way to engage and recognize the potentials of every individual in any society is employment. I agree completely with one of my scholar friends who says "employment is one of the most equitable means of income distribution." We must take the gathering of data for the unemployed and the underemployed in any society very seriously. -Peter Obi.',
+    //   img: require("./../../assets/img/ObiDatti.png"),
+    //   date: "12th oct 2022",
+    // },
   ];
 
   return (
@@ -85,13 +87,26 @@ const AdminPost = ({ navigation }) => {
       <Header navigation={navigation} text="Latest Campaign Updates" />
       <ScrollView>
         <View style={{ paddingHorizontal: 5 }}>
-          {adminposts.map((post) => (
-            <AdminPostList
-              navigation={navigation}
-              key={generateId()}
-              post={post}
-            />
-          ))}
+          {adminposts.length === 0 ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                height: 600,
+              }}
+            >
+              <BodyTextLight>No post yet</BodyTextLight>
+            </View>
+          ) : (
+            adminposts.map((post) => (
+              <AdminPostList
+                navigation={navigation}
+                key={generateId()}
+                post={post}
+              />
+            ))
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

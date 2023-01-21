@@ -16,6 +16,7 @@ import { getInitals } from "../../utils/getInitials";
 import Wrapper from "../../components/general/Wrapper";
 import { colors } from "../../constants/color";
 import BodyTextLight from "../../components/general/BodyTextLight";
+import { sterilizeLoginDetails } from "../../utils/sterilize";
 
 const Login = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -32,8 +33,10 @@ const Login = ({ navigation }) => {
 
     if (!res) {
       setLoading(true);
+
+      const data = sterilizeLoginDetails(details);
       try {
-        await dispatch(login(details));
+        await dispatch(login(data));
         setError((errors) => ({ ...errors, res: "" }));
       } catch (error) {
         setError((errors) => ({ ...errors, res: error.message }));

@@ -61,12 +61,18 @@ const PostContent = ({ navigation }) => {
               <BodyTextLight style={{ color: "#fff", paddingBottom: 15 }}>
                 Latest Campaign Updates
               </BodyTextLight>
-              <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <View style={{ flex: 0.8 }}>
                   <BodyTextLight style={{ color: "#fff", fontSize: 13 }}>
-                    Dr. Okupe's Desk
+                    DG. Campaign
                   </BodyTextLight>
-                  <BodyTextLight
+                  {/* <BodyTextLight
                     style={{
                       fontFamily: "normal",
                       color: "#fff",
@@ -74,7 +80,7 @@ const PostContent = ({ navigation }) => {
                     }}
                   >
                     DG. Campaign
-                  </BodyTextLight>
+                  </BodyTextLight> */}
                 </View>
                 <View style={{ flex: 0.2 }}>
                   <Speaker />

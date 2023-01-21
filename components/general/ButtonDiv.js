@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     zIndex: -10,
   },
   error: {
-    marginLeft: 20,
-    marginBottom: 5,
+    textAlign: "center",
+    marginBottom: 8,
   },
 });

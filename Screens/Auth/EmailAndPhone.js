@@ -11,6 +11,7 @@ import { verifyEmailAndPhone } from "../../redux/actions/auth";
 import EmailSvg from "../../svg/EmailSvg";
 import BodyTextLight from "../../components/general/BodyTextLight";
 import Wrapper from "../../components/general/Wrapper";
+import { sterilizeSignupDetails } from "../../utils/sterilize";
 
 const EmailAndPhone = ({ navigation }) => {
   const [details, setDetails] = useState({
@@ -26,10 +27,11 @@ const EmailAndPhone = ({ navigation }) => {
     const res = emailAndPhoneError(details, setError);
 
     if (res !== true) {
+      const data = sterilizeSignupDetails(details);
       setLoading(true);
       try {
         setError((errors) => ({ ...errors, res: "" }));
-        await dispatch(verifyEmailAndPhone(details));
+        await dispatch(verifyEmailAndPhone(data));
         navigation.navigate("OtpScreen");
       } catch (error) {
         setError((errors) => ({ ...errors, res: error.message }));
