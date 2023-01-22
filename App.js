@@ -5,44 +5,8 @@ import { useFonts } from "expo-font";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import AppNavigation from "./Navigation/AppNavigation";
-import * as Linking from "expo-linking";
-
-const prefix = Linking.createURL("/");
 
 export default function App() {
-  const [data, setData] = useState(null);
-
-  const handleDeepLink = (e) => {
-    let res = Linking.parse(e.url);
-    setData(res);
-  };
-
-  useEffect(() => {
-    if (data) {
-      console.log(JSON.stringify(data));
-    } else {
-      console.log("app not opened from deep link");
-    }
-  }, [data]);
-
-  useEffect(() => {
-    async function getInitialURL() {
-      const initialURL = await Linking.getInitialURL();
-
-      if (initialURL) setData(Linking.parse(initialURL));
-    }
-
-    const unsub = Linking.addEventListener("url", handleDeepLink);
-
-    if (!data) {
-      getInitialURL();
-    }
-
-    return () => {
-      unsub;
-    };
-  }, []);
-
   const [loaded] = useFonts({
     black: require("./assets/fonts/BeVietnamPro-Black.ttf"),
     bold: require("./assets/fonts/BeVietnamPro-Bold.ttf"),
@@ -55,19 +19,9 @@ export default function App() {
     return null;
   }
 
-  const linking = {
-    prefixes: [prefix, "http://labourp.ng/app"],
-    config: {
-      screens: {
-        ViewPostScreen: "home",
-        SignupScreen: "settings",
-      },
-    },
-  };
-
   return (
     <Provider store={store}>
-      <NavigationContainer linking={linking}>
+      <NavigationContainer>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1 }}

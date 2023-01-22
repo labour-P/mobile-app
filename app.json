@@ -1,30 +1,24 @@
 {
   "expo": {
-      "name": "Labour P",
+    "name": "Labour P",
     "slug": "Labour-P",
     "version": "1.0.0",
     "orientation": "portrait",
-      "icon": "./assets/icon.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-   
     "androidStatusBar": {
       "backgroundColor": "#000",
       "barStyle": "light-content",
       "translucent": false
     },
-
-    "packagerOpts": {
-      "sourceExts": [
-        "cjs"
-      ]
-    },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 1000,
+      "url": "https://u.expo.dev/95b8aec4-706c-45eb-a000-99b301c83346"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -45,6 +39,22 @@
     },
     "web": {
       "favicon": "./assets/icon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "95b8aec4-706c-45eb-a000-99b301c83346"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
