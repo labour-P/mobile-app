@@ -136,8 +136,7 @@ const Trends = ({ navigation }) => {
       >
         {trends?.length === 0 || trends === undefined ? (
           <View style={styles.center}>
-            {/* <ActivityIndicator size="large" color={colors.greenText} /> */}
-            <BodyTextLight>No post yet</BodyTextLight>
+            <ActivityIndicator size="large" color={colors.greenText} />
           </View>
         ) : (
           trends?.map((trend) => (

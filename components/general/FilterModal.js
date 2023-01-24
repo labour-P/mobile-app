@@ -105,29 +105,32 @@ const FilterModal = (props) => {
   }, []);
 
   const handleFilter = () => {
+    console.log("posts", props.posts);
     if (details.state && !details.lga && !details.ward) {
       const newPosts = props.posts.filter((post) => {
         const location = post.location.split("-")[0];
-        props.setCurrentLocation([details.state]);
 
         return (
           location.toLowerCase().trim() === details.state.toLowerCase().trim()
         );
       });
+
       props.setPosts(newPosts);
       props.setModalVisible(false);
+      props.setCurrentLocation([details.state]);
     }
 
     if (details.state && details.lga && !details.ward) {
       const newPosts = props.posts.filter((post) => {
         const location =
           post.location.split("-")[0] + "-" + post.location.split("-")[1];
-        props.setCurrentLocation([details.state, details.lga]);
+
         const selectedLga = details.state.trim() + "-" + details.lga.trim();
         return location.toLowerCase().trim() === selectedLga.toLowerCase();
       });
       props.setPosts(newPosts);
       props.setModalVisible(false);
+      props.setCurrentLocation([details.state, details.lga]);
     }
 
     if (details.state && details.lga && details.ward) {
@@ -144,12 +147,13 @@ const FilterModal = (props) => {
           details.lga.trim() +
           "-" +
           details.ward.trim();
+        console.log(details);
 
-        props.setCurrentLocation([details.state, details.lga, details.ward]);
         return location.toLowerCase().trim() === selectedWard.toLowerCase();
       });
       props.setPosts(newPosts);
       props.setModalVisible(false);
+      props.setCurrentLocation([details.state, details.lga, details.ward]);
     }
   };
 

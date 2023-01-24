@@ -7,7 +7,7 @@ export const getAdminPost = () => {
     try {
       const res = await getData("/admin/viewposts");
 
-      console.log(res);
+      console.log("admin", res);
       dispatch({ type: GET_ADMIN_POST, payload: res });
     } catch (error) {
       throw new Error(error);
