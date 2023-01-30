@@ -26,10 +26,9 @@ const Notifications = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const { adminPost } = useSelector((state) => state.admin);
+  const { adminPosts } = useSelector((state) => state.admin);
   const { user } = useSelector((state) => state.auth);
 
-  // console.log(adminPost);
   const dispatch = useDispatch();
 
   const fetchPosts = async () => {
@@ -51,31 +50,8 @@ const Notifications = ({ navigation }) => {
     setIsModalOpen(true);
   };
 
-  const adminposts = [
-    // {
-    //   id: 1,
-    //   type: "news",
-    //   heading: "Precise Onward Unemployemnt Register",
-    //   message:
-    //     '"The dissatisfied individuals in any society are usually those who feel their potential is underutilized or outrightly unrecognized. One time tested way to engage and recognize the potentials of every individual in any society is employment. I agree completely with one of my scholar friends who says "employment is one of the most equitable means of income distribution." We must take the gathering of data for the unemployed and the underemployed in any society very seriously. -Peter Obi.',
-    //   img: require("./../assets/img/ObiDatti.png"),
-    //   date: "12th oct 2022",
-    //   location: "FCT-Bwari-Kubwa",
-    // },
-    // {
-    //   id: 2,
-    //   type: "Rally",
-    //   heading: "Nassarawa Rally",
-    //   message:
-    //     '"The dissatisfied individuals in any society are usually those who feel their potential is underutilized or outrightly unrecognized. One time tested way to engage and recognize the potentials of every individual in any society is employment. I agree completely with one of my scholar friends who says "employment is one of the most equitable means of income distribution." We must take the gathering of data for the unemployed and the underemployed in any society very seriously. -Peter Obi.',
-    //   img: require("./../assets/img/ObiDatti.png"),
-    //   date: "12th oct 2022",
-    //   location: "Abia-Aba North-Eziama",
-    // },
-  ];
-
   useEffect(() => {
-    const filteredPosts = adminposts.filter((post) => {
+    const filteredPosts = adminPosts.filter((post) => {
       const location =
         post.location.split("-")[0] +
         "-" +
@@ -109,7 +85,7 @@ const Notifications = ({ navigation }) => {
           {isModalOpen && (
             <FilterModal
               setPosts={setPosts}
-              posts={adminposts}
+              posts={adminPosts}
               modalVisible={isModalOpen}
               setModalVisible={setIsModalOpen}
               setCurrentLocation={setCurrentLocation}

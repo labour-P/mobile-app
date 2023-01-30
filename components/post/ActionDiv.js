@@ -60,13 +60,23 @@ const ActionDiv = ({
     }
   };
 
-  const onShare = async () => {
+  const onShare = async (thread) => {
     try {
       const result = await Share.share({
-        message: `${configs.BASE_URL}/api/routes/posts/${thread}`,
+        message: `exp://labourp://posts/${thread}`,
       });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log(result.activityType);
+        } else {
+          console.log("Link shared successfully");
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log("Link sharing dismissed");
+      }
     } catch (error) {
-      setError((errors) => ({ ...errors, res: error.message }));
+      console.log(error.message);
     }
   };
 
@@ -102,7 +112,7 @@ const ActionDiv = ({
           )}
           <BodyTextLight style={styles.count}>{post?.countRate}</BodyTextLight>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => onShare()}>
+        <TouchableOpacity onPress={() => onShare(post.thread)}>
           <ShareSvg />
         </TouchableOpacity>
       </View>

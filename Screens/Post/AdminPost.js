@@ -22,9 +22,8 @@ import BodyTextLight from "../../components/general/BodyTextLight";
 const AdminPost = ({ navigation }) => {
   const [error, setError] = useState({});
 
-  const { adminPost } = useSelector((state) => state.admin);
+  const { adminPosts } = useSelector((state) => state.admin);
 
-  console.log(adminPost);
   const dispatch = useDispatch();
 
   const fetchPosts = async () => {
@@ -39,55 +38,13 @@ const AdminPost = ({ navigation }) => {
     fetchPosts();
   }, []);
 
-  const adminposts = [
-    // {
-    //   id: 1,
-    //   type: "news",
-    //   heading: "Precise Onward Unemployemnt Register",
-    //   message:
-    //     '"The dissatisfied individuals in any society are usually those who feel their potential is underutilized or outrightly unrecognized. One time tested way to engage and recognize the potentials of every individual in any society is employment. I agree completely with one of my scholar friends who says "employment is one of the most equitable means of income distribution." We must take the gathering of data for the unemployed and the underemployed in any society very seriously. -Peter Obi.',
-    //   img: require("./../../assets/img/ObiDatti.png"),
-    //   date: "12th oct 2022",
-    // },
-    // {
-    //   id: 2,
-    //   type: "Rally",
-    //   heading: "Nassarawa Rally",
-    //   message:
-    //     '"The dissatisfied individuals in any society are usually those who feel their potential is underutilized or outrightly unrecognized. One time tested way to engage and recognize the potentials of every individual in any society is employment. I agree completely with one of my scholar friends who says "employment is one of the most equitable means of income distribution." We must take the gathering of data for the unemployed and the underemployed in any society very seriously. -Peter Obi.',
-    //   img: require("./../../assets/img/ObiDatti.png"),
-    //   date: "12th oct 2022",
-    // },
-  ];
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
       {error.res && <ErrorDiv error={error} setError={setError} />}
-      {/* <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          paddingHorizontal: 20,
-          paddingVertical: 20,
-          borderBottomColor: colors.primaryGray,
-          borderBottomWidth: 1,
-          backgroundColor: colors.white,
-        }}
-      >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <AntDesign name="close" size={25} color={colors.black} />
-        </TouchableOpacity>
-        <View>
-          <HeadingText style={{ paddingLeft: 15 }}>
-            Latest Campaign Updates
-          </HeadingText>
-        </View>
-      </View> */}
       <Header navigation={navigation} text="Latest Campaign Updates" />
       <ScrollView>
         <View style={{ paddingHorizontal: 5 }}>
-          {adminposts.length === 0 ? (
+          {adminPosts.length === 0 ? (
             <View
               style={{
                 flex: 1,
