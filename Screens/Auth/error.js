@@ -213,21 +213,23 @@ export const resetError = (
   setError,
   otpPin
 ) => {
-  if (!otp) {
+  console.log("be otp-", otpPin.otp);
+
+  if (!otpPin) {
     setError((error) => ({ ...error, otp: "OTP must be six characters" }));
     return true;
   } else {
     setError((error) => ({ ...error, otp: "" }));
   }
 
-  if (otp.length < 6 || otp.length > 6) {
+  if (otpPin.length < 6 || otpPin.length > 6) {
     setError((error) => ({ ...error, otp: "OTP must be 6 characters" }));
     return true;
   } else {
     setError((error) => ({ ...error, otp: "" }));
   }
 
-  if (otp !== otpPin.otp) {
+  if (otp.toString() !== otpPin.otp.toString()) {
     setError((error) => ({ ...error, otp: "OTP is invalid or expired" }));
     return true;
   } else {
@@ -252,7 +254,7 @@ export const resetError = (
     }));
     return true;
   } else {
-    setError((error) => ({ ...error, confirmPassword: "" }));
+    setError((error) => ({ ...error, confirmPassword: "", otp: "" }));
   }
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, SafeAreaView, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import InputDiv from "../../components/forms/InputDiv";
 import BodyTextLight from "../../components/general/BodyTextLight";
 import ButtonDiv from "../../components/general/ButtonDiv";
@@ -12,6 +12,7 @@ import { forgotPassword, SET_OTP } from "../../redux/actions/auth";
 import Wrapper from "../../components/general/Wrapper";
 import configs from "../../config/config";
 import ErrorDiv from "../../utils/ErrorDiv";
+import axios from "axios";
 
 const RecoverPassword = ({ navigation }) => {
   const [phone, setPhone] = useState("");
@@ -22,7 +23,8 @@ const RecoverPassword = ({ navigation }) => {
 
   const handleSubmit = async () => {
     const res = phoneError(phone, setError);
-
+    const myPhone = `+234${phone.slice(1)}`;
+    console.log(phone);
     if (res !== true) {
       setLoading(true);
       try {
@@ -33,11 +35,15 @@ const RecoverPassword = ({ navigation }) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ phone: `+234${phone.slice(1)}` }),
+            body: JSON.stringify({ phone: myPhone }),
           }
         );
 
+        // const data = axios.post(`${configs.BASE_URL}/api/auth/forgotpassword`, {
+        //   phone: phone,
+        // });
         const res = await response.json();
+
         console.log(res);
         dispatch({ type: SET_OTP, payload: res });
         setError((errors) => ({ ...errors, res: "" }));

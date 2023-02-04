@@ -34,7 +34,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.labourp.laborp",
-      "versionCode": 18,
+      "versionCode": 19,
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ]

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, SafeAreaView, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import PasswordInputDiv from "../../components/forms/PasswordInputDiv";
 import ButtonDiv from "../../components/general/ButtonDiv";
 import ForwardForever from "../../components/general/ForwardForever";
@@ -12,6 +12,7 @@ import { resetPassword } from "../../redux/actions/auth";
 import OtpInput from "../../components/forms/OtpInput";
 import Wrapper from "../../components/general/Wrapper";
 import configs from "../../config/config";
+import axios from "axios";
 
 const ResetPassword = ({ navigation, route }) => {
   const { phone } = route.params;
@@ -30,28 +31,29 @@ const ResetPassword = ({ navigation, route }) => {
 
   const handleSubmit = async () => {
     const res = resetError(details, otp, setError, otpPin);
-
+    console.log(phone);
     if (!res) {
       setLoading(true);
       try {
         const response = await fetch(
           `${configs.BASE_URL}/api/auth/resetpassword`,
           {
-            method: "PATCH",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              phone: `+234${phone.slice(1)}`,
+              phone: phone,
               password: details.password,
             }),
           }
         );
 
         const res = await response.json();
+
         console.log(res);
-        console.log("changed");
       } catch (error) {
+        console.log("error", error);
         setError((error) => ({ ...error, res: error.message }));
       }
       setLoading(false);
